@@ -14,7 +14,6 @@
 
 #include "GLES/gl.h"
 #include "eglport.h"
-#include "GL/glu.h"
 #include "SDL.h"
 #include "SDL_mixer.h"
 

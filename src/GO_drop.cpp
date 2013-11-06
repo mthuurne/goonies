@@ -11,7 +11,6 @@
 #include "string.h"
 
 #include "GLES/gl.h"
-#include "GL/glu.h"
 #include "SDL.h"
 #include "SDL_image.h"
 #include "SDL_mixer.h"

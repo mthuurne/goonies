@@ -9,7 +9,6 @@
 #include "math.h"
 
 #include <GLES/gl.h>
-#include "GL/glu.h"
 #include "SDL.h"
 
 #include "stdlib.h"

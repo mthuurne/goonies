@@ -14,7 +14,6 @@
 
 #include "GLES/gl.h"
 #define GL_CLAMP GL_CLAMP_TO_EDGE
-#include "GL/glu.h"
 #include "SDL.h"
 #include "SDL_image.h"
 #include "SDL_mixer.h"
