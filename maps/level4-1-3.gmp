@@ -1,0 +1,302 @@
+512 320
+5
+0
+0
+90
+32 48 gr_tileyellow-ground-m
+16 48 gr_tileyellow-ground-m
+480 48 gr_tileyellow-ground-m
+464 48 gr_tileyellow-ground-m
+448 48 gr_tileyellow-ground-m
+432 48 gr_tileyellow-ground-m
+416 48 gr_tileyellow-ground-m
+400 48 gr_tileyellow-ground-m
+384 48 gr_tileyellow-ground-m
+368 48 gr_tileyellow-ground-m
+352 48 gr_tileyellow-ground-m
+336 48 gr_tileyellow-ground-m
+304 48 gr_tileyellow-ground-m
+320 48 gr_tileyellow-ground-m
+240 48 gr_tileyellow-ground-m
+256 48 gr_tileyellow-ground-m
+288 48 gr_tileyellow-ground-m
+272 48 gr_tileyellow-ground-m
+224 48 gr_tileyellow-ground-m
+208 48 gr_tileyellow-ground-m
+192 48 gr_tileyellow-ground-m
+176 48 gr_tileyellow-ground-m
+160 48 gr_tileyellow-ground-m
+144 48 gr_tileyellow-ground-m
+128 48 gr_tileyellow-ground-m
+96 48 gr_tileyellow-ground-m
+80 48 gr_tileyellow-ground-m
+64 48 gr_tileyellow-ground-m
+48 48 gr_tileyellow-ground-m
+112 48 gr_tileyellow-ground-m
+144 112 gr_tileyellow-ground-m
+160 112 gr_tileyellow-ground-m
+176 112 gr_tileyellow-ground-m
+208 112 gr_tileyellow-ground-m
+192 112 gr_tileyellow-ground-m
+240 112 gr_tileyellow-ground-m
+224 112 gr_tileyellow-ground-m
+256 112 gr_tileyellow-ground-m
+272 112 gr_tileyellow-ground-m
+288 112 gr_tileyellow-ground-m
+304 112 gr_tileyellow-ground-m
+320 112 gr_tileyellow-ground-m
+400 144 gr_tileyellow-ground-m
+416 144 gr_tileyellow-ground-m
+432 144 gr_tileyellow-ground-m
+448 144 gr_tileyellow-ground-m
+464 144 gr_tileyellow-ground-m
+480 144 gr_tileyellow-ground-m
+80 144 gr_tileyellow-ground-m
+64 144 gr_tileyellow-ground-m
+48 144 gr_tileyellow-ground-m
+32 144 gr_tileyellow-ground-m
+16 144 gr_tileyellow-ground-m
+352 112 gr_tileyellow-ground-m
+336 112 gr_tileyellow-ground-m
+96 144 gr_tileyellow-ground-m
+16 240 gr_tileyellow-ground-m
+48 240 gr_tileyellow-ground-m
+32 240 gr_tileyellow-ground-m
+64 240 gr_tileyellow-ground-m
+80 240 gr_tileyellow-ground-m
+96 240 gr_tileyellow-ground-m
+112 240 gr_tileyellow-ground-m
+128 240 gr_tileyellow-ground-m
+144 240 gr_tileyellow-ground-m
+160 240 gr_tileyellow-ground-m
+176 240 gr_tileyellow-ground-m
+192 240 gr_tileyellow-ground-m
+208 240 gr_tileyellow-ground-m
+240 240 gr_tileyellow-ground-m
+256 240 gr_tileyellow-ground-m
+480 240 gr_tileyellow-ground-m
+464 240 gr_tileyellow-ground-m
+448 240 gr_tileyellow-ground-m
+432 240 gr_tileyellow-ground-m
+416 240 gr_tileyellow-ground-m
+288 240 gr_tileyellow-ground-m
+272 240 gr_tileyellow-ground-m
+224 240 gr_tileyellow-ground-m
+368 240 gr_tileyellow-ground-m
+304 240 gr_tileyellow-ground-m
+320 240 gr_tileyellow-ground-m
+336 240 gr_tileyellow-ground-m
+352 240 gr_tileyellow-ground-m
+384 240 gr_tileyellow-ground-m
+400 240 gr_tileyellow-ground-m
+368 112 gr_tileyellow-ground-r
+112 144 gr_tileyellow-ground-r
+128 112 gr_tileyellow-ground-l
+384 144 gr_tileyellow-ground-l
+0
+0
+6
+256 96 GO_key 0
+216 240 GO_skulldoor 3 3 1 0
+272 224 GO_skull 1 0
+240 144 GO_fallingrock_yellow 0
+96 160 GO_dropgenerator 0
+272 192 GO_flame 0
+161
+16 0 wl_tileyellow-ceiling-2
+80 0 wl_tileyellow-ceiling-2
+144 0 wl_tileyellow-ceiling-2
+208 0 wl_tileyellow-ceiling-2
+480 0 wl_tileyellow-ceiling-2
+416 0 wl_tileyellow-ceiling-2
+336 0 wl_tileyellow-ceiling-2
+272 0 wl_tileyellow-ceiling-2
+16 64 wl_tileyellow-ceiling-2
+144 64 wl_tileyellow-ceiling-2
+208 64 wl_tileyellow-ceiling-2
+480 64 wl_tileyellow-ceiling-2
+352 64 wl_tileyellow-ceiling-2
+288 64 wl_tileyellow-ceiling-2
+144 128 wl_tileyellow-ceiling-2
+208 128 wl_tileyellow-ceiling-2
+272 128 wl_tileyellow-ceiling-2
+336 128 wl_tileyellow-ceiling-2
+96 160 wl_tileyellow-ceiling-2
+16 256 wl_tileyellow-ceiling-2
+80 256 wl_tileyellow-ceiling-2
+144 256 wl_tileyellow-ceiling-2
+208 256 wl_tileyellow-ceiling-2
+272 256 wl_tileyellow-ceiling-2
+336 256 wl_tileyellow-ceiling-2
+480 256 wl_tileyellow-ceiling-2
+400 160 wl_tileyellow-ceiling-2
+464 256 wl_tileyellow-ceiling-3
+400 256 wl_tileyellow-ceiling-3
+288 256 wl_tileyellow-ceiling-3
+224 256 wl_tileyellow-ceiling-3
+160 256 wl_tileyellow-ceiling-3
+96 256 wl_tileyellow-ceiling-3
+16 160 wl_tileyellow-ceiling-3
+80 160 wl_tileyellow-ceiling-3
+160 128 wl_tileyellow-ceiling-3
+224 128 wl_tileyellow-ceiling-3
+288 128 wl_tileyellow-ceiling-3
+352 128 wl_tileyellow-ceiling-3
+416 160 wl_tileyellow-ceiling-3
+480 160 wl_tileyellow-ceiling-3
+464 64 wl_tileyellow-ceiling-3
+400 64 wl_tileyellow-ceiling-3
+336 64 wl_tileyellow-ceiling-3
+272 64 wl_tileyellow-ceiling-3
+224 64 wl_tileyellow-ceiling-3
+160 64 wl_tileyellow-ceiling-3
+32 64 wl_tileyellow-ceiling-3
+96 64 wl_tileyellow-ceiling-3
+32 0 wl_tileyellow-ceiling-3
+96 0 wl_tileyellow-ceiling-3
+160 0 wl_tileyellow-ceiling-3
+224 0 wl_tileyellow-ceiling-3
+288 0 wl_tileyellow-ceiling-3
+352 0 wl_tileyellow-ceiling-3
+464 0 wl_tileyellow-ceiling-3
+48 256 wl_tileyellow-ceiling-4
+48 160 wl_tileyellow-ceiling-4
+48 64 wl_tileyellow-ceiling-4
+48 0 wl_tileyellow-ceiling-4
+112 0 wl_tileyellow-ceiling-4
+112 64 wl_tileyellow-ceiling-4
+112 160 wl_tileyellow-ceiling-4
+112 256 wl_tileyellow-ceiling-4
+176 256 wl_tileyellow-ceiling-4
+176 128 wl_tileyellow-ceiling-4
+176 64 wl_tileyellow-ceiling-4
+176 0 wl_tileyellow-ceiling-4
+240 0 wl_tileyellow-ceiling-4
+240 64 wl_tileyellow-ceiling-4
+240 128 wl_tileyellow-ceiling-4
+240 256 wl_tileyellow-ceiling-4
+304 256 wl_tileyellow-ceiling-4
+304 128 wl_tileyellow-ceiling-4
+304 64 wl_tileyellow-ceiling-4
+304 0 wl_tileyellow-ceiling-4
+368 0 wl_tileyellow-ceiling-4
+368 64 wl_tileyellow-ceiling-4
+368 128 wl_tileyellow-ceiling-4
+368 256 wl_tileyellow-ceiling-4
+432 256 wl_tileyellow-ceiling-4
+432 160 wl_tileyellow-ceiling-4
+432 64 wl_tileyellow-ceiling-4
+432 0 wl_tileyellow-ceiling-4
+448 256 wl_tileyellow-ceiling-5
+448 160 wl_tileyellow-ceiling-5
+448 64 wl_tileyellow-ceiling-5
+448 0 wl_tileyellow-ceiling-5
+384 0 wl_tileyellow-ceiling-5
+400 0 wl_tileyellow-ceiling-3
+384 64 wl_tileyellow-ceiling-5
+384 256 wl_tileyellow-ceiling-5
+320 256 wl_tileyellow-ceiling-5
+320 128 wl_tileyellow-ceiling-5
+320 64 wl_tileyellow-ceiling-5
+320 0 wl_tileyellow-ceiling-5
+256 0 wl_tileyellow-ceiling-5
+256 64 wl_tileyellow-ceiling-5
+256 128 wl_tileyellow-ceiling-5
+256 256 wl_tileyellow-ceiling-5
+192 256 wl_tileyellow-ceiling-5
+128 256 wl_tileyellow-ceiling-5
+64 256 wl_tileyellow-ceiling-5
+64 160 wl_tileyellow-ceiling-5
+128 128 wl_tileyellow-ceiling-5
+128 64 wl_tileyellow-ceiling-5
+128 0 wl_tileyellow-ceiling-5
+80 0 wl_tileyellow-ceiling-5
+64 0 wl_tileyellow-ceiling-5
+192 0 wl_tileyellow-ceiling-5
+192 64 wl_tileyellow-ceiling-5
+64 64 wl_tileyellow-ceiling-2
+192 128 wl_tileyellow-ceiling-5
+384 160 wl_tileyellow-ceiling-5
+352 256 wl_tileyellow-ceiling-3
+0 160 wl_tileyellow-ceiling-wall-l
+0 256 wl_tileyellow-ceiling-wall-l
+0 64 wl_tileyellow-ceiling-wall-l
+0 0 wl_tileyellow-ceiling-wall-l
+496 64 wl_tileyellow-ceiling-wall-r
+496 0 wl_tileyellow-ceiling-wall-r
+496 160 wl_tileyellow-ceiling-wall-r
+496 256 wl_tileyellow-ceiling-wall-r
+0 240 wl_tileyellow-ground-wall-l
+0 144 wl_tileyellow-ground-wall-l
+0 48 wl_tileyellow-ground-wall-l
+496 240 wl_tileyellow-ground-wall-r
+496 144 wl_tileyellow-ground-wall-r
+496 48 wl_tileyellow-ground-wall-r
+0 16 wl_tileyellow-wall-l1
+0 80 wl_tileyellow-wall-l1
+0 128 wl_tileyellow-wall-l1
+0 176 wl_tileyellow-wall-l1
+0 224 wl_tileyellow-wall-l1
+0 272 wl_tileyellow-wall-l1
+0 32 wl_tileyellow-wall-l2
+0 96 wl_tileyellow-wall-l2
+0 192 wl_tileyellow-wall-l2
+0 112 wl_tileyellow-wall-l3
+0 304 wl_tileyellow-wall-l3
+0 288 wl_tileyellow-wall-l2
+496 16 wl_tileyellow-wall-r1
+496 80 wl_tileyellow-wall-r1
+496 128 wl_tileyellow-wall-r1
+496 176 wl_tileyellow-wall-r1
+496 224 wl_tileyellow-wall-r1
+496 272 wl_tileyellow-wall-r1
+496 32 wl_tileyellow-wall-r2
+496 96 wl_tileyellow-wall-r2
+496 192 wl_tileyellow-wall-r2
+496 288 wl_tileyellow-wall-r2
+496 112 wl_tileyellow-wall-r3
+496 208 wl_tileyellow-wall-r3
+496 304 wl_tileyellow-wall-r3
+416 256 wl_tileyellow-ceiling-1
+32 256 wl_tileyellow-ceiling-1
+32 160 wl_tileyellow-ceiling-1
+80 64 wl_tileyellow-ceiling-1
+416 64 wl_tileyellow-ceiling-1
+464 160 wl_tileyellow-ceiling-1
+0 208 wl_tileyellow-wall-l3
+32
+416 64 GO_ropetop 0
+80 64 GO_ropetop 0
+464 160 GO_ropetop 0
+32 160 GO_ropetop 0
+32 176 GO_rope 0
+32 192 GO_rope 0
+32 208 GO_rope 0
+464 240 GO_ropebottom 0
+464 224 GO_rope 0
+464 208 GO_rope 0
+464 192 GO_rope 0
+464 176 GO_rope 0
+32 240 GO_ropebottom 0
+32 224 GO_rope 0
+32 272 GO_rope 0
+32 288 GO_rope 0
+32 304 GO_rope 0
+32 256 GO_ropetop 0
+80 144 GO_ropebottom 0
+416 144 GO_ropebottom 0
+416 256 GO_ropetop 0
+416 272 GO_rope 0
+416 288 GO_rope 0
+416 304 GO_rope 0
+416 128 GO_rope 0
+416 80 GO_rope 0
+416 96 GO_rope 0
+416 112 GO_rope 0
+80 112 GO_rope 0
+80 96 GO_rope 0
+80 80 GO_rope 0
+80 128 GO_rope 0
+0
+0
+

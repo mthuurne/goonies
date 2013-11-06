@@ -1,0 +1,272 @@
+512 320
+5
+0
+0
+44
+16 160 gr_tilegreen-ground-m
+32 160 gr_tilegreen-ground-m
+48 160 gr_tilegreen-ground-m
+64 160 gr_tilegreen-ground-m
+80 160 gr_tilegreen-ground-m
+96 160 gr_tilegreen-ground-m
+112 160 gr_tilegreen-ground-m
+128 160 gr_tilegreen-ground-m
+144 160 gr_tilegreen-ground-m
+416 160 gr_tilegreen-ground-m
+400 160 gr_tilegreen-ground-m
+432 160 gr_tilegreen-ground-m
+448 160 gr_tilegreen-ground-m
+464 160 gr_tilegreen-ground-m
+480 160 gr_tilegreen-ground-m
+384 160 gr_tilegreen-ground-m
+368 160 gr_tilegreen-ground-m
+352 160 gr_tilegreen-ground-m
+112 96 gr_tilegreen-ground-r
+384 48 gr_tilegreen-ground-l
+400 48 gr_tilegreen-ground-m
+416 48 gr_tilegreen-ground-m
+432 48 gr_tilegreen-ground-m
+448 48 gr_tilegreen-ground-m
+464 48 gr_tilegreen-ground-m
+480 48 gr_tilegreen-ground-m
+256 160 gr_tilegreen-bridge-m
+240 160 gr_tilegreen-bridge-m
+224 160 gr_tilegreen-bridge-m
+208 160 gr_tilegreen-bridge-m
+272 160 gr_tilegreen-bridge-m
+288 160 gr_tilegreen-bridge-m
+192 160 gr_tilegreen-bridge-m
+176 160 gr_tilegreen-bridge-l
+160 160 gr_tilegreen-ground-r
+16 96 gr_tilegreen-ground-m
+32 96 gr_tilegreen-ground-m
+48 96 gr_tilegreen-ground-m
+64 96 gr_tilegreen-ground-m
+80 96 gr_tilegreen-ground-m
+96 96 gr_tilegreen-ground-m
+304 160 gr_tilegreen-bridge-r
+320 160 gr_tilegreen-ground-l
+336 160 gr_tilegreen-ground-m
+0
+0
+133
+208 16 GO_wateropening_green 0
+256 16 GO_wateropening_green 0
+88 96 GO_skulldoor 3 6 1 0
+16 80 GO_key 0
+0 256 GO_water 0
+32 256 GO_water 0
+160 272 GO_water 0
+240 272 GO_water 0
+384 272 GO_water 0
+496 256 GO_water 0
+464 256 GO_water 0
+96 272 GO_water 0
+16 256 GO_water 0
+16 272 GO_water 0
+0 288 GO_water 0
+0 272 GO_water 0
+16 288 GO_water 0
+32 288 GO_water 0
+48 256 GO_water 0
+48 272 GO_water 0
+80 256 GO_water 0
+64 272 GO_water 0
+80 272 GO_water 0
+64 256 GO_water 0
+32 272 GO_water 0
+0 304 GO_water 0
+16 304 GO_water 0
+32 304 GO_water 0
+48 304 GO_water 0
+80 304 GO_water 0
+96 304 GO_water 0
+160 304 GO_water 0
+336 288 GO_water 0
+400 288 GO_water 0
+464 288 GO_water 0
+480 288 GO_water 0
+464 304 GO_water 0
+432 304 GO_water 0
+48 288 GO_water 0
+64 288 GO_water 0
+64 304 GO_water 0
+80 288 GO_water 0
+96 288 GO_water 0
+96 256 GO_water 0
+112 256 GO_water 0
+112 272 GO_water 0
+112 288 GO_water 0
+112 304 GO_water 0
+128 304 GO_water 0
+144 304 GO_water 0
+144 288 GO_water 0
+128 288 GO_water 0
+128 272 GO_water 0
+128 256 GO_water 0
+144 256 GO_water 0
+144 272 GO_water 0
+160 256 GO_water 0
+176 256 GO_water 0
+176 272 GO_water 0
+176 288 GO_water 0
+176 304 GO_water 0
+160 288 GO_water 0
+192 288 GO_water 0
+192 272 GO_water 0
+192 256 GO_water 0
+208 256 GO_water 0
+224 256 GO_water 0
+224 272 GO_water 0
+208 272 GO_water 0
+208 288 GO_water 0
+224 288 GO_water 0
+224 304 GO_water 0
+208 304 GO_water 0
+192 304 GO_water 0
+240 288 GO_water 0
+240 304 GO_water 0
+448 256 GO_water 0
+480 256 GO_water 0
+496 272 GO_water 0
+336 256 GO_water 0
+240 256 GO_water 0
+256 256 GO_water 0
+288 256 GO_water 0
+320 256 GO_water 0
+304 256 GO_water 0
+272 256 GO_water 0
+272 272 GO_water 0
+256 272 GO_water 0
+272 288 GO_water 0
+256 288 GO_water 0
+272 304 GO_water 0
+256 304 GO_water 0
+304 288 GO_water 0
+288 288 GO_water 0
+288 272 GO_water 0
+288 304 GO_water 0
+368 304 GO_water 0
+432 272 GO_water 0
+432 256 GO_water 0
+400 256 GO_water 0
+416 256 GO_water 0
+384 256 GO_water 0
+352 256 GO_water 0
+368 272 GO_water 0
+352 272 GO_water 0
+336 272 GO_water 0
+320 272 GO_water 0
+304 272 GO_water 0
+320 288 GO_water 0
+320 304 GO_water 0
+304 304 GO_water 0
+336 304 GO_water 0
+352 304 GO_water 0
+352 288 GO_water 0
+368 288 GO_water 0
+384 288 GO_water 0
+384 304 GO_water 0
+400 304 GO_water 0
+416 304 GO_water 0
+416 288 GO_water 0
+416 272 GO_water 0
+400 272 GO_water 0
+368 256 GO_water 0
+448 288 GO_water 0
+432 288 GO_water 0
+448 272 GO_water 0
+448 304 GO_water 0
+464 272 GO_water 0
+480 272 GO_water 0
+496 288 GO_water 0
+496 304 GO_water 0
+480 304 GO_water 0
+352 144 GO_skeleton 1 0
+67
+0 0 wl_tilegreen-wall-l1
+0 48 wl_tilegreen-wall-l1
+0 128 wl_tilegreen-wall-l1
+0 192 wl_tilegreen-wall-l1
+0 240 wl_tilegreen-wall-l1
+0 16 wl_tilegreen-wall-l2
+0 64 wl_tilegreen-wall-l2
+0 144 wl_tilegreen-wall-l2
+0 208 wl_tilegreen-wall-l2
+0 80 wl_tilegreen-wall-l3
+0 224 wl_tilegreen-wall-l3
+0 32 wl_tilegreen-wall-l3
+496 0 wl_tilegreen-wall-r1
+496 80 wl_tilegreen-wall-r1
+496 128 wl_tilegreen-wall-r1
+496 192 wl_tilegreen-wall-r1
+496 240 wl_tilegreen-wall-r1
+496 16 wl_tilegreen-wall-r2
+496 96 wl_tilegreen-wall-r2
+496 144 wl_tilegreen-wall-r2
+496 208 wl_tilegreen-wall-r2
+496 32 wl_tilegreen-wall-r3
+496 112 wl_tilegreen-wall-r3
+496 224 wl_tilegreen-wall-r3
+496 64 wl_tilegreen-ceiling-wall-r
+496 176 wl_tilegreen-ceiling-wall-r
+0 112 wl_tilegreen-ceiling-wall-l
+0 176 wl_tilegreen-ceiling-wall-l
+0 160 wl_tilegreen-ground-wall-l
+0 96 wl_tilegreen-ground-wall-l
+496 160 wl_tilegreen-ground-wall-r
+496 48 wl_tilegreen-ground-wall-r
+480 64 wl_tilegreen-ceiling-2
+96 112 wl_tilegreen-ceiling-2
+16 176 wl_tilegreen-ceiling-2
+80 176 wl_tilegreen-ceiling-2
+144 176 wl_tilegreen-ceiling-2
+480 176 wl_tilegreen-ceiling-2
+416 176 wl_tilegreen-ceiling-2
+352 176 wl_tilegreen-ceiling-2
+464 64 wl_tilegreen-ceiling-3
+400 64 wl_tilegreen-ceiling-3
+80 112 wl_tilegreen-ceiling-3
+16 112 wl_tilegreen-ceiling-3
+32 176 wl_tilegreen-ceiling-3
+96 176 wl_tilegreen-ceiling-3
+336 176 wl_tilegreen-ceiling-3
+400 176 wl_tilegreen-ceiling-3
+464 176 wl_tilegreen-ceiling-3
+432 64 wl_tilegreen-ceiling-4
+48 112 wl_tilegreen-ceiling-4
+112 112 wl_tilegreen-ceiling-4
+48 176 wl_tilegreen-ceiling-4
+112 176 wl_tilegreen-ceiling-4
+368 176 wl_tilegreen-ceiling-4
+432 176 wl_tilegreen-ceiling-4
+448 64 wl_tilegreen-ceiling-5
+384 64 wl_tilegreen-ceiling-5
+384 176 wl_tilegreen-ceiling-5
+448 176 wl_tilegreen-ceiling-5
+128 176 wl_tilegreen-ceiling-5
+64 176 wl_tilegreen-ceiling-5
+64 112 wl_tilegreen-ceiling-5
+320 176 wl_tilegreen-ceiling-1
+160 176 wl_tilegreen-ceiling-1
+32 112 wl_tilegreen-ceiling-1
+416 64 wl_tilegreen-ceiling-1
+15
+464 0 GO_rope 0
+464 16 GO_rope 0
+464 32 GO_rope 0
+32 112 GO_ropetop 0
+32 128 GO_rope 0
+32 144 GO_rope 0
+32 160 GO_ropebottom 0
+416 160 GO_ropebottom 0
+416 144 GO_rope 0
+416 128 GO_rope 0
+416 112 GO_rope 0
+416 96 GO_rope 0
+416 80 GO_rope 0
+464 48 GO_ropebottom 0
+416 64 GO_ropetop 0
+0
+0
+when and(position(13 8 18 12) not(has(GO_lightbluecoat)) has(GO_key)) new(GO_item 27 2 17)

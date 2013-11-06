@@ -1,0 +1,303 @@
+512 320
+5
+0
+0
+80
+16 272 gr_tilegreen-ground-m
+32 272 gr_tilegreen-ground-m
+48 272 gr_tilegreen-ground-m
+64 272 gr_tilegreen-ground-m
+80 272 gr_tilegreen-ground-m
+96 272 gr_tilegreen-ground-m
+112 272 gr_tilegreen-ground-m
+128 272 gr_tilegreen-ground-m
+144 272 gr_tilegreen-ground-m
+176 272 gr_tilegreen-ground-m
+160 272 gr_tilegreen-ground-m
+192 272 gr_tilegreen-ground-m
+208 272 gr_tilegreen-ground-m
+224 272 gr_tilegreen-ground-m
+240 272 gr_tilegreen-ground-m
+272 272 gr_tilegreen-ground-m
+256 272 gr_tilegreen-ground-m
+288 272 gr_tilegreen-ground-m
+304 272 gr_tilegreen-ground-m
+320 272 gr_tilegreen-ground-m
+352 272 gr_tilegreen-ground-m
+336 272 gr_tilegreen-ground-m
+368 272 gr_tilegreen-ground-m
+384 272 gr_tilegreen-ground-m
+400 272 gr_tilegreen-ground-m
+416 272 gr_tilegreen-ground-m
+432 272 gr_tilegreen-ground-m
+464 272 gr_tilegreen-ground-m
+448 272 gr_tilegreen-ground-m
+480 272 gr_tilegreen-ground-m
+480 208 gr_tilegreen-ground-m
+496 208 gr_tilegreen-ground-m
+464 208 gr_tilegreen-ground-m
+448 208 gr_tilegreen-ground-m
+432 208 gr_tilegreen-ground-m
+416 208 gr_tilegreen-ground-m
+400 208 gr_tilegreen-ground-m
+304 208 gr_tilegreen-ground-m
+288 208 gr_tilegreen-ground-m
+272 208 gr_tilegreen-ground-m
+256 208 gr_tilegreen-ground-m
+240 208 gr_tilegreen-ground-m
+224 208 gr_tilegreen-ground-m
+208 208 gr_tilegreen-ground-m
+192 208 gr_tilegreen-ground-m
+192 144 gr_tilegreen-ground-m
+208 144 gr_tilegreen-ground-m
+224 144 gr_tilegreen-ground-m
+240 144 gr_tilegreen-ground-m
+256 144 gr_tilegreen-ground-m
+272 144 gr_tilegreen-ground-m
+288 144 gr_tilegreen-ground-m
+304 144 gr_tilegreen-ground-m
+336 144 gr_tilegreen-ground-m
+320 144 gr_tilegreen-ground-m
+352 144 gr_tilegreen-ground-m
+176 144 gr_tilegreen-ground-m
+160 144 gr_tilegreen-ground-m
+144 144 gr_tilegreen-ground-m
+128 144 gr_tilegreen-ground-m
+112 144 gr_tilegreen-ground-m
+64 144 gr_tilegreen-ground-m
+80 144 gr_tilegreen-ground-m
+96 144 gr_tilegreen-ground-m
+64 80 gr_tilegreen-ground-m
+80 80 gr_tilegreen-ground-m
+96 80 gr_tilegreen-ground-m
+112 80 gr_tilegreen-ground-m
+144 80 gr_tilegreen-ground-m
+128 80 gr_tilegreen-ground-m
+160 80 gr_tilegreen-ground-m
+176 80 gr_tilegreen-ground-m
+496 272 gr_tilegreen-ground-m
+192 80 gr_tilegreen-ground-r
+368 144 gr_tilegreen-ground-r
+320 208 gr_tilegreen-ground-r
+48 80 gr_tilegreen-ground-l
+48 144 gr_tilegreen-ground-l
+176 208 gr_tilegreen-ground-l
+384 208 gr_tilegreen-ground-l
+0
+0
+72
+280 144 GO_skulldoor 3 2 3 0
+112 64 GO_key 0
+48 16 GO_fallingrock_green 0
+432 192 GO_skeleton 1 0
+80 64 GO_skull 1 1
+336 80 GO_wateropening_green 0
+304 16 GO_fallingrock_green 0
+208 16 GO_bigrock_green 0
+0 288 GO_water 0
+176 288 GO_water 0
+496 288 GO_water 0
+496 304 GO_water 0
+480 304 GO_water 0
+464 304 GO_water 0
+432 304 GO_water 0
+400 304 GO_water 0
+0 304 GO_water 0
+16 304 GO_water 0
+16 288 GO_water 0
+32 288 GO_water 0
+48 288 GO_water 0
+80 288 GO_water 0
+96 288 GO_water 0
+128 288 GO_water 0
+160 288 GO_water 0
+144 288 GO_water 0
+112 288 GO_water 0
+64 288 GO_water 0
+32 304 GO_water 0
+48 304 GO_water 0
+64 304 GO_water 0
+80 304 GO_water 0
+96 304 GO_water 0
+128 304 GO_water 0
+144 304 GO_water 0
+112 304 GO_water 0
+176 304 GO_water 0
+160 304 GO_water 0
+192 304 GO_water 0
+208 304 GO_water 0
+224 304 GO_water 0
+256 304 GO_water 0
+272 304 GO_water 0
+304 304 GO_water 0
+336 304 GO_water 0
+368 304 GO_water 0
+240 304 GO_water 0
+192 288 GO_water 0
+208 288 GO_water 0
+224 288 GO_water 0
+240 288 GO_water 0
+256 288 GO_water 0
+288 304 GO_water 0
+288 288 GO_water 0
+304 288 GO_water 0
+272 288 GO_water 0
+480 288 GO_water 0
+464 288 GO_water 0
+448 288 GO_water 0
+416 288 GO_water 0
+400 288 GO_water 0
+384 288 GO_water 0
+368 288 GO_water 0
+352 288 GO_water 0
+336 288 GO_water 0
+320 288 GO_water 0
+320 304 GO_water 0
+352 304 GO_water 0
+384 304 GO_water 0
+432 288 GO_water 0
+416 304 GO_water 0
+448 304 GO_water 0
+104
+64 96 wl_tilegreen-ceiling-1
+176 96 wl_tilegreen-ceiling-1
+64 160 wl_tilegreen-ceiling-1
+192 224 wl_tilegreen-ceiling-1
+304 224 wl_tilegreen-ceiling-1
+16 0 wl_tilegreen-ceiling-2
+80 0 wl_tilegreen-ceiling-2
+160 0 wl_tilegreen-ceiling-2
+224 0 wl_tilegreen-ceiling-2
+272 0 wl_tilegreen-ceiling-2
+336 0 wl_tilegreen-ceiling-2
+192 96 wl_tilegreen-ceiling-2
+48 96 wl_tilegreen-ceiling-2
+80 160 wl_tilegreen-ceiling-2
+144 160 wl_tilegreen-ceiling-2
+208 160 wl_tilegreen-ceiling-2
+400 224 wl_tilegreen-ceiling-2
+464 224 wl_tilegreen-ceiling-2
+320 224 wl_tilegreen-ceiling-2
+288 224 wl_tilegreen-ceiling-2
+176 224 wl_tilegreen-ceiling-2
+32 0 wl_tilegreen-ceiling-3
+96 0 wl_tilegreen-ceiling-3
+144 0 wl_tilegreen-ceiling-3
+208 0 wl_tilegreen-ceiling-3
+288 0 wl_tilegreen-ceiling-3
+352 0 wl_tilegreen-ceiling-3
+144 96 wl_tilegreen-ceiling-3
+96 96 wl_tilegreen-ceiling-3
+96 160 wl_tilegreen-ceiling-3
+160 160 wl_tilegreen-ceiling-3
+224 160 wl_tilegreen-ceiling-3
+272 160 wl_tilegreen-ceiling-3
+224 224 wl_tilegreen-ceiling-3
+272 224 wl_tilegreen-ceiling-3
+480 224 wl_tilegreen-ceiling-3
+48 0 wl_tilegreen-ceiling-4
+112 0 wl_tilegreen-ceiling-4
+176 0 wl_tilegreen-ceiling-4
+240 0 wl_tilegreen-ceiling-4
+304 0 wl_tilegreen-ceiling-4
+368 0 wl_tilegreen-ceiling-4
+112 96 wl_tilegreen-ceiling-4
+112 160 wl_tilegreen-ceiling-4
+176 160 wl_tilegreen-ceiling-4
+240 160 wl_tilegreen-ceiling-4
+304 160 wl_tilegreen-ceiling-4
+352 160 wl_tilegreen-ceiling-2
+336 160 wl_tilegreen-ceiling-3
+240 224 wl_tilegreen-ceiling-4
+432 224 wl_tilegreen-ceiling-4
+496 224 wl_tilegreen-ceiling-4
+64 0 wl_tilegreen-ceiling-5
+128 0 wl_tilegreen-ceiling-5
+192 0 wl_tilegreen-ceiling-5
+256 0 wl_tilegreen-ceiling-5
+320 0 wl_tilegreen-ceiling-5
+128 96 wl_tilegreen-ceiling-5
+128 160 wl_tilegreen-ceiling-5
+192 160 wl_tilegreen-ceiling-5
+256 160 wl_tilegreen-ceiling-5
+320 160 wl_tilegreen-ceiling-5
+256 224 wl_tilegreen-ceiling-5
+448 224 wl_tilegreen-ceiling-5
+384 224 wl_tilegreen-ceiling-5
+0 0 wl_tilegreen-ceiling-wall-l
+0 80 wl_tilegreen-wall-l1
+0 112 wl_tilegreen-wall-l1
+0 144 wl_tilegreen-wall-l1
+0 176 wl_tilegreen-wall-l1
+0 208 wl_tilegreen-wall-l1
+0 240 wl_tilegreen-wall-l1
+0 96 wl_tilegreen-wall-l2
+0 128 wl_tilegreen-wall-l2
+0 160 wl_tilegreen-wall-l2
+0 192 wl_tilegreen-wall-l2
+0 224 wl_tilegreen-wall-l2
+0 256 wl_tilegreen-wall-l2
+0 272 wl_tilegreen-ground-wall-l
+496 0 wl_tilegreen-wall-r1
+496 32 wl_tilegreen-wall-r1
+496 64 wl_tilegreen-wall-r1
+496 96 wl_tilegreen-wall-r1
+496 16 wl_tilegreen-wall-r2
+496 48 wl_tilegreen-wall-r2
+496 80 wl_tilegreen-wall-r2
+0 32 wl_tilegreen-wall-l2
+0 64 wl_tilegreen-wall-l2
+0 16 wl_tilegreen-wall-l1
+0 48 wl_tilegreen-wall-l1
+256 16 wl_tilegreen-wall-l1
+256 48 wl_tilegreen-wall-l1
+256 32 wl_tilegreen-wall-l2
+240 16 wl_tilegreen-wall-r1
+240 48 wl_tilegreen-wall-r1
+240 32 wl_tilegreen-wall-r2
+368 160 wl_tilegreen-ceiling-5
+48 160 wl_tilegreen-ceiling-2
+160 96 wl_tilegreen-ceiling-1
+80 96 wl_tilegreen-ceiling-1
+288 160 wl_tilegreen-ceiling-1
+208 224 wl_tilegreen-ceiling-1
+416 224 wl_tilegreen-ceiling-1
+112 176 wl_tilegreen_stalactite
+34
+160 96 GO_ropetop 0
+80 96 GO_ropetop 0
+288 160 GO_ropetop 0
+208 224 GO_ropetop 0
+416 224 GO_ropetop 0
+80 144 GO_ropebottom 0
+160 144 GO_ropebottom 0
+288 208 GO_ropebottom 0
+208 272 GO_ropebottom 0
+416 272 GO_ropebottom 0
+80 112 GO_rope 0
+80 128 GO_rope 0
+160 112 GO_rope 0
+160 128 GO_rope 0
+288 192 GO_rope 0
+288 176 GO_rope 0
+208 240 GO_rope 0
+208 256 GO_rope 0
+416 240 GO_rope 0
+416 256 GO_rope 0
+464 208 GO_ropebottom 0
+464 192 GO_rope 0
+464 176 GO_rope 0
+464 160 GO_rope 0
+464 144 GO_rope 0
+464 128 GO_rope 0
+464 112 GO_rope 0
+464 96 GO_rope 0
+464 80 GO_rope 0
+464 64 GO_rope 0
+464 48 GO_rope 0
+464 32 GO_rope 0
+464 16 GO_rope 0
+464 0 GO_rope 0
+0
+0
+

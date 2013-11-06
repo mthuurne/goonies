@@ -1,0 +1,337 @@
+512 320
+5
+0
+0
+57
+0 112 gr_tile-ground-m
+16 112 gr_tile-ground-m
+32 112 gr_tile-ground-m
+48 112 gr_tile-ground-m
+64 112 gr_tile-ground-m
+80 112 gr_tile-ground-m
+96 112 gr_tile-ground-m
+192 80 gr_tile-ground-m
+208 80 gr_tile-ground-m
+224 80 gr_tile-ground-m
+240 80 gr_tile-ground-m
+256 80 gr_tile-ground-m
+272 80 gr_tile-ground-m
+288 80 gr_tile-ground-m
+304 80 gr_tile-ground-m
+320 80 gr_tile-ground-m
+336 80 gr_tile-ground-m
+352 80 gr_tile-ground-m
+368 80 gr_tile-ground-m
+384 80 gr_tile-ground-m
+400 80 gr_tile-ground-m
+416 80 gr_tile-ground-m
+432 80 gr_tile-ground-m
+0 176 gr_tile-ground-m
+16 176 gr_tile-ground-m
+32 176 gr_tile-ground-m
+48 176 gr_tile-ground-m
+64 176 gr_tile-ground-m
+80 176 gr_tile-ground-m
+96 176 gr_tile-ground-m
+112 176 gr_tile-ground-m
+128 176 gr_tile-ground-m
+144 176 gr_tile-ground-m
+160 176 gr_tile-ground-m
+176 176 gr_tile-ground-m
+192 176 gr_tile-ground-m
+208 176 gr_tile-ground-m
+224 176 gr_tile-ground-m
+240 176 gr_tile-ground-m
+256 176 gr_tile-ground-m
+272 176 gr_tile-ground-m
+288 176 gr_tile-ground-m
+304 176 gr_tile-ground-m
+320 176 gr_tile-ground-m
+336 176 gr_tile-ground-m
+352 176 gr_tile-ground-m
+368 176 gr_tile-ground-m
+384 176 gr_tile-ground-m
+400 176 gr_tile-ground-m
+416 176 gr_tile-ground-m
+432 176 gr_tile-ground-m
+448 176 gr_tile-ground-m
+464 176 gr_tile-ground-m
+480 176 gr_tile-ground-m
+176 80 gr_tile-ground-l
+112 112 gr_tile-ground-r
+448 80 gr_tile-ground-r
+0
+0
+133
+0 256 GO_water 0
+16 256 GO_water 0
+32 256 GO_water 0
+48 256 GO_water 0
+64 256 GO_water 0
+80 256 GO_water 0
+96 256 GO_water 0
+112 256 GO_water 0
+128 256 GO_water 0
+144 256 GO_water 0
+160 256 GO_water 0
+176 256 GO_water 0
+192 256 GO_water 0
+208 256 GO_water 0
+224 256 GO_water 0
+240 256 GO_water 0
+256 256 GO_water 0
+272 256 GO_water 0
+288 256 GO_water 0
+304 256 GO_water 0
+320 256 GO_water 0
+336 256 GO_water 0
+352 256 GO_water 0
+368 256 GO_water 0
+384 256 GO_water 0
+400 256 GO_water 0
+416 256 GO_water 0
+432 256 GO_water 0
+448 256 GO_water 0
+464 256 GO_water 0
+480 256 GO_water 0
+496 256 GO_water 0
+0 272 GO_water 0
+16 272 GO_water 0
+32 272 GO_water 0
+48 272 GO_water 0
+64 272 GO_water 0
+80 272 GO_water 0
+96 272 GO_water 0
+112 272 GO_water 0
+128 272 GO_water 0
+144 272 GO_water 0
+160 272 GO_water 0
+176 272 GO_water 0
+192 272 GO_water 0
+208 272 GO_water 0
+224 272 GO_water 0
+240 272 GO_water 0
+256 272 GO_water 0
+272 272 GO_water 0
+288 272 GO_water 0
+304 272 GO_water 0
+320 272 GO_water 0
+336 272 GO_water 0
+352 272 GO_water 0
+368 272 GO_water 0
+384 272 GO_water 0
+400 272 GO_water 0
+416 272 GO_water 0
+432 272 GO_water 0
+448 272 GO_water 0
+464 272 GO_water 0
+480 272 GO_water 0
+496 272 GO_water 0
+0 288 GO_water 0
+16 288 GO_water 0
+32 288 GO_water 0
+48 288 GO_water 0
+64 288 GO_water 0
+80 288 GO_water 0
+96 288 GO_water 0
+112 288 GO_water 0
+128 288 GO_water 0
+144 288 GO_water 0
+160 288 GO_water 0
+176 288 GO_water 0
+192 288 GO_water 0
+208 288 GO_water 0
+224 288 GO_water 0
+240 288 GO_water 0
+256 288 GO_water 0
+272 288 GO_water 0
+288 288 GO_water 0
+304 288 GO_water 0
+320 288 GO_water 0
+336 288 GO_water 0
+352 288 GO_water 0
+368 288 GO_water 0
+384 288 GO_water 0
+400 288 GO_water 0
+416 288 GO_water 0
+432 288 GO_water 0
+448 288 GO_water 0
+464 288 GO_water 0
+480 288 GO_water 0
+496 288 GO_water 0
+0 304 GO_water 0
+16 304 GO_water 0
+32 304 GO_water 0
+48 304 GO_water 0
+64 304 GO_water 0
+80 304 GO_water 0
+96 304 GO_water 0
+112 304 GO_water 0
+128 304 GO_water 0
+144 304 GO_water 0
+160 304 GO_water 0
+176 304 GO_water 0
+192 304 GO_water 0
+208 304 GO_water 0
+224 304 GO_water 0
+240 304 GO_water 0
+256 304 GO_water 0
+272 304 GO_water 0
+288 304 GO_water 0
+304 304 GO_water 0
+320 304 GO_water 0
+336 304 GO_water 0
+352 304 GO_water 0
+368 304 GO_water 0
+384 304 GO_water 0
+400 304 GO_water 0
+416 304 GO_water 0
+432 304 GO_water 0
+448 304 GO_water 0
+464 304 GO_water 0
+480 304 GO_water 0
+496 304 GO_water 0
+352 32 GO_cagedoor 2 1 1
+256 16 GO_wateropening 0
+168 176 GO_skulldoor 3 3 1 0
+336 160 GO_jumpingskull 1 0
+304 112 GO_fallingrock 0
+118
+0 0 wl_tile-wall
+32 0 wl_tile-wall
+64 0 wl_tile-wall
+96 0 wl_tile-wall
+0 32 wl_tile-wall
+32 32 wl_tile-wall
+64 32 wl_tile-wall
+96 32 wl_tile-wall
+144 0 wl_tile-ceiling-2
+208 0 wl_tile-ceiling-2
+272 0 wl_tile-ceiling-2
+336 0 wl_tile-ceiling-2
+416 0 wl_tile-ceiling-2
+480 0 wl_tile-ceiling-2
+32 128 wl_tile-ceiling-2
+96 128 wl_tile-ceiling-2
+16 192 wl_tile-ceiling-2
+80 192 wl_tile-ceiling-2
+144 192 wl_tile-ceiling-2
+208 192 wl_tile-ceiling-2
+272 192 wl_tile-ceiling-2
+336 192 wl_tile-ceiling-2
+416 192 wl_tile-ceiling-2
+480 192 wl_tile-ceiling-2
+160 0 wl_tile-ceiling-3
+224 0 wl_tile-ceiling-3
+288 0 wl_tile-ceiling-3
+352 0 wl_tile-ceiling-3
+400 0 wl_tile-ceiling-3
+464 0 wl_tile-ceiling-3
+192 96 wl_tile-ceiling-1
+432 96 wl_tile-ceiling-1
+176 96 wl_tile-ceiling-2
+272 96 wl_tile-ceiling-2
+336 96 wl_tile-ceiling-2
+448 96 wl_tile-ceiling-2
+224 96 wl_tile-ceiling-3
+288 96 wl_tile-ceiling-3
+352 96 wl_tile-ceiling-3
+400 96 wl_tile-ceiling-3
+16 128 wl_tile-ceiling-3
+32 192 wl_tile-ceiling-3
+96 192 wl_tile-ceiling-3
+160 192 wl_tile-ceiling-3
+224 192 wl_tile-ceiling-3
+288 192 wl_tile-ceiling-3
+352 192 wl_tile-ceiling-3
+400 192 wl_tile-ceiling-3
+464 192 wl_tile-ceiling-3
+176 0 wl_tile-ceiling-4
+240 0 wl_tile-ceiling-4
+304 0 wl_tile-ceiling-4
+368 0 wl_tile-ceiling-4
+432 0 wl_tile-ceiling-4
+240 96 wl_tile-ceiling-4
+304 96 wl_tile-ceiling-4
+368 96 wl_tile-ceiling-4
+48 128 wl_tile-ceiling-4
+112 128 wl_tile-ceiling-4
+48 192 wl_tile-ceiling-4
+112 192 wl_tile-ceiling-4
+176 192 wl_tile-ceiling-4
+240 192 wl_tile-ceiling-4
+304 192 wl_tile-ceiling-4
+368 192 wl_tile-ceiling-4
+432 192 wl_tile-ceiling-4
+192 0 wl_tile-ceiling-5
+256 0 wl_tile-ceiling-5
+320 0 wl_tile-ceiling-5
+384 0 wl_tile-ceiling-5
+448 0 wl_tile-ceiling-5
+256 96 wl_tile-ceiling-5
+320 96 wl_tile-ceiling-5
+384 96 wl_tile-ceiling-5
+64 128 wl_tile-ceiling-5
+64 192 wl_tile-ceiling-5
+128 192 wl_tile-ceiling-5
+192 192 wl_tile-ceiling-5
+256 192 wl_tile-ceiling-5
+320 192 wl_tile-ceiling-5
+384 192 wl_tile-ceiling-5
+448 192 wl_tile-ceiling-5
+0 128 wl_tile-ceiling-5
+32 64 wl_tile-ceiling-2
+96 64 wl_tile-ceiling-2
+16 64 wl_tile-ceiling-3
+80 64 wl_tile-ceiling-3
+48 64 wl_tile-ceiling-4
+112 64 wl_tile-ceiling-4
+0 64 wl_tile-ceiling-5
+64 64 wl_tile-ceiling-5
+128 0 wl_tile-ceiling-wall-l
+0 192 wl_tile-ceiling-wall-l
+496 0 wl_tile-ceiling-wall-r
+496 192 wl_tile-ceiling-wall-r
+496 176 wl_tile-ground-wall-r
+128 16 wl_tile-wall-l1
+128 48 wl_tile-wall-l1
+0 208 wl_tile-wall-l1
+0 240 wl_tile-wall-l1
+128 32 wl_tile-wall-l2
+0 224 wl_tile-wall-l2
+496 16 wl_tile-wall-r1
+496 48 wl_tile-wall-r1
+496 64 wl_tile-wall-r1
+496 112 wl_tile-wall-r1
+496 128 wl_tile-wall-r1
+496 160 wl_tile-wall-r1
+496 208 wl_tile-wall-r1
+496 240 wl_tile-wall-r1
+496 32 wl_tile-wall-r2
+496 80 wl_tile-wall-r2
+496 144 wl_tile-wall-r2
+496 224 wl_tile-wall-r2
+496 96 wl_tile-wall-r3
+208 96 wl_tile-ceiling-1
+416 96 wl_tile-ceiling-1
+80 128 wl_tile-ceiling-1
+16
+80 144 GO_rope 0
+80 160 GO_rope 0
+208 112 GO_rope 0
+208 128 GO_rope 0
+208 144 GO_rope 0
+208 160 GO_rope 0
+416 112 GO_rope 0
+416 128 GO_rope 0
+416 144 GO_rope 0
+416 160 GO_rope 0
+80 128 GO_ropetop 0
+208 96 GO_ropetop 0
+416 96 GO_ropetop 0
+80 176 GO_ropebottom 0
+208 176 GO_ropebottom 0
+416 176 GO_ropebottom 0
+0
+0
+

@@ -1,0 +1,155 @@
+512 320
+5
+0
+0
+12
+384 144 gr_tileblue-ground-l
+416 144 gr_tileblue-ground-m
+400 144 gr_tileblue-ground-m
+432 144 gr_tileblue-ground-m
+448 144 gr_tileblue-ground-m
+464 144 gr_tileblue-ground-m
+480 144 gr_tileblue-ground-m
+448 80 gr_tileblue-ground-m
+464 80 gr_tileblue-ground-m
+480 80 gr_tileblue-ground-m
+496 80 gr_tileblue-ground-m
+432 80 gr_tileblue-ground-l
+0
+0
+1
+400 128 GO_skeleton 1 1
+85
+96 288 wl_tileblue-wall
+96 256 wl_tileblue-wall
+96 224 wl_tileblue-wall
+96 192 wl_tileblue-wall
+96 160 wl_tileblue-wall
+96 128 wl_tileblue-wall
+96 96 wl_tileblue-wall
+96 64 wl_tileblue-wall
+96 32 wl_tileblue-wall
+96 0 wl_tileblue-wall
+0 0 wl_tileblue-wall
+32 0 wl_tileblue-wall
+64 0 wl_tileblue-wall
+64 32 wl_tileblue-wall
+32 32 wl_tileblue-wall
+0 32 wl_tileblue-wall
+0 64 wl_tileblue-wall
+0 96 wl_tileblue-wall
+0 128 wl_tileblue-wall
+0 160 wl_tileblue-wall
+0 192 wl_tileblue-wall
+0 224 wl_tileblue-wall
+0 256 wl_tileblue-wall
+0 288 wl_tileblue-wall
+32 288 wl_tileblue-wall
+64 288 wl_tileblue-wall
+32 256 wl_tileblue-wall
+64 224 wl_tileblue-wall
+32 192 wl_tileblue-wall
+64 160 wl_tileblue-wall
+32 128 wl_tileblue-wall
+64 96 wl_tileblue-wall
+32 64 wl_tileblue-wall
+64 64 wl_tileblue-wall
+32 96 wl_tileblue-wall
+64 128 wl_tileblue-wall
+32 160 wl_tileblue-wall
+64 192 wl_tileblue-wall
+32 224 wl_tileblue-wall
+64 256 wl_tileblue-wall
+128 0 wl_tileblue-wall-l1
+128 48 wl_tileblue-wall-l1
+128 96 wl_tileblue-wall-l1
+128 144 wl_tileblue-wall-l1
+128 16 wl_tileblue-wall-l2
+128 64 wl_tileblue-wall-l2
+128 112 wl_tileblue-wall-l2
+128 160 wl_tileblue-wall-l2
+128 208 wl_tileblue-wall-l2
+128 256 wl_tileblue-wall-l2
+128 304 wl_tileblue-wall-l2
+128 192 wl_tileblue-wall-l1
+128 240 wl_tileblue-wall-l1
+128 288 wl_tileblue-wall-l1
+128 32 wl_tileblue-wall-l3
+128 80 wl_tileblue-wall-l3
+128 128 wl_tileblue-wall-l3
+128 176 wl_tileblue-wall-l3
+128 224 wl_tileblue-wall-l3
+128 272 wl_tileblue-wall-l3
+496 176 wl_tileblue-wall-r1
+496 112 wl_tileblue-wall-r1
+496 224 wl_tileblue-wall-r1
+496 272 wl_tileblue-wall-r1
+496 128 wl_tileblue-wall-r2
+496 192 wl_tileblue-wall-r2
+496 240 wl_tileblue-wall-r2
+496 288 wl_tileblue-wall-r2
+496 208 wl_tileblue-wall-r3
+496 256 wl_tileblue-wall-r3
+496 304 wl_tileblue-wall-r3
+496 144 wl_tileblue-ground-wall-r
+496 160 wl_tileblue-ceiling-wall-r
+496 96 wl_tileblue-ceiling-wall-r
+480 96 wl_tileblue-ceiling-3
+480 160 wl_tileblue-ceiling-3
+416 160 wl_tileblue-ceiling-3
+448 96 wl_tileblue-ceiling-1
+400 160 wl_tileblue-ceiling-2
+464 160 wl_tileblue-ceiling-2
+432 96 wl_tileblue-ceiling-2
+432 160 wl_tileblue-ceiling-4
+448 160 wl_tileblue-ceiling-5
+384 160 wl_tileblue-ceiling-5
+464 96 wl_tilegreen-ceiling-1
+44
+208 304 GO_rope 0
+208 288 GO_rope 0
+208 272 GO_rope 0
+208 256 GO_rope 0
+208 224 GO_rope 0
+336 304 GO_rope 0
+336 288 GO_rope 0
+336 272 GO_rope 0
+336 256 GO_rope 0
+336 240 GO_rope 0
+336 208 GO_rope 0
+336 176 GO_rope 0
+336 144 GO_rope 0
+336 128 GO_rope 0
+336 80 GO_rope 0
+336 32 GO_rope 0
+336 0 GO_rope 0
+336 16 GO_rope 0
+336 48 GO_rope 0
+336 96 GO_rope 0
+336 64 GO_rope 0
+336 112 GO_rope 0
+336 160 GO_rope 0
+336 192 GO_rope 0
+336 224 GO_rope 0
+208 240 GO_rope 0
+208 208 GO_rope 0
+208 144 GO_rope 0
+208 112 GO_rope 0
+208 80 GO_rope 0
+208 32 GO_rope 0
+208 0 GO_rope 0
+208 16 GO_rope 0
+208 48 GO_rope 0
+208 64 GO_rope 0
+208 96 GO_rope 0
+208 176 GO_rope 0
+208 192 GO_rope 0
+208 160 GO_rope 0
+208 128 GO_rope 0
+464 144 GO_ropebottom 0
+464 112 GO_rope 0
+464 128 GO_rope 0
+464 96 GO_ropetop 0
+0
+0
+

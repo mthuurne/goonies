@@ -1,0 +1,280 @@
+512 320
+5
+0
+0
+136
+0 304 gr_tile-ground-m
+16 304 gr_tile-ground-m
+32 304 gr_tile-ground-m
+48 304 gr_tile-ground-m
+64 304 gr_tile-ground-m
+80 304 gr_tile-ground-m
+96 304 gr_tile-ground-m
+112 304 gr_tile-ground-m
+128 304 gr_tile-ground-m
+144 304 gr_tile-ground-m
+160 304 gr_tile-ground-m
+176 304 gr_tile-ground-m
+192 304 gr_tile-ground-m
+208 304 gr_tile-ground-m
+224 304 gr_tile-ground-m
+240 304 gr_tile-ground-m
+256 304 gr_tile-ground-m
+272 304 gr_tile-ground-m
+288 304 gr_tile-ground-m
+304 304 gr_tile-ground-m
+320 304 gr_tile-ground-m
+336 304 gr_tile-ground-m
+352 304 gr_tile-ground-m
+368 304 gr_tile-ground-m
+384 304 gr_tile-ground-m
+400 304 gr_tile-ground-m
+416 304 gr_tile-ground-m
+432 304 gr_tile-ground-m
+448 304 gr_tile-ground-m
+464 304 gr_tile-ground-m
+480 304 gr_tile-ground-m
+480 176 gr_tile-ground-m
+464 176 gr_tile-ground-m
+448 176 gr_tile-ground-m
+432 176 gr_tile-ground-m
+416 176 gr_tile-ground-m
+400 176 gr_tile-ground-m
+384 176 gr_tile-ground-m
+368 176 gr_tile-ground-m
+352 176 gr_tile-ground-m
+336 176 gr_tile-ground-m
+320 176 gr_tile-ground-m
+304 176 gr_tile-ground-l
+480 48 gr_tile-ground-m
+464 48 gr_tile-ground-m
+448 48 gr_tile-ground-m
+432 48 gr_tile-ground-m
+416 48 gr_tile-ground-m
+400 48 gr_tile-ground-m
+384 48 gr_tile-ground-m
+368 48 gr_tile-ground-m
+352 48 gr_tile-ground-m
+336 48 gr_tile-ground-m
+320 48 gr_tile-ground-m
+304 48 gr_tile-ground-m
+288 48 gr_tile-ground-m
+272 48 gr_tile-ground-m
+256 48 gr_tile-ground-m
+240 48 gr_tile-ground-m
+224 48 gr_tile-ground-m
+208 48 gr_tile-ground-m
+192 48 gr_tile-ground-m
+160 48 gr_tile-ground-m
+176 48 gr_tile-ground-m
+144 48 gr_tile-ground-m
+128 48 gr_tile-ground-m
+112 48 gr_tile-ground-m
+96 48 gr_tile-ground-m
+80 48 gr_tile-ground-m
+64 48 gr_tile-ground-m
+48 48 gr_tile-ground-m
+32 48 gr_tile-ground-m
+16 48 gr_tile-ground-m
+0 176 gr_tile-ground-m
+16 176 gr_tile-ground-m
+32 176 gr_tile-ground-m
+48 176 gr_tile-ground-m
+64 176 gr_tile-ground-m
+80 176 gr_tile-ground-m
+96 176 gr_tile-ground-m
+112 176 gr_tile-ground-m
+128 176 gr_tile-ground-m
+144 176 gr_tile-ground-m
+160 176 gr_tile-ground-m
+176 176 gr_tile-ground-m
+192 176 gr_tile-ground-m
+208 176 gr_tile-ground-m
+224 176 gr_tile-ground-m
+240 176 gr_tile-ground-r
+208 304 gr_pipe-ground
+208 176 gr_pipe-ground
+208 48 gr_pipe-ground
+208 32 gr_pipe-node
+208 160 gr_pipe-node
+208 288 gr_pipe-node
+208 240 gr_pipe-node
+80 176 gr_pipe-ground
+208 144 gr_pipe-v
+208 128 gr_pipe-v
+208 112 gr_pipe-v
+208 96 gr_pipe-v
+208 80 gr_pipe-v
+208 16 gr_pipe-v
+208 0 gr_pipe-v
+208 272 gr_pipe-v
+208 256 gr_pipe-v
+208 224 gr_pipe-v
+208 208 gr_pipe-v
+80 160 gr_pipe-v
+80 144 gr_pipe-v
+80 128 gr_pipe-v
+80 112 gr_pipe-v
+80 96 gr_pipe-v
+80 80 gr_pipe-v
+208 64 gr_pipe-joint
+208 192 gr_pipe-joint
+80 64 gr_pipe-joint
+80 192 gr_pipe-joint
+192 64 gr_pipe-h
+176 64 gr_pipe-h
+160 64 gr_pipe-h
+144 64 gr_pipe-h
+128 64 gr_pipe-h
+112 64 gr_pipe-h
+96 64 gr_pipe-h
+64 64 gr_pipe-h
+48 64 gr_pipe-h
+32 64 gr_pipe-h
+16 64 gr_pipe-h
+0 64 gr_pipe-h
+0 192 gr_pipe-h
+16 192 gr_pipe-h
+32 192 gr_pipe-h
+48 192 gr_pipe-h
+64 192 gr_pipe-h
+288 272 gr_cavedoor
+0
+0
+12
+304 288 GO_key 0
+80 0 GO_cagedoor 2 1 30
+136 176 GO_skulldoor 3 5 2 0
+304 160 GO_skull 1 0
+288 32 GO_skeleton 1 0
+176 272 GO_pipe_water_left 0
+176 144 GO_pipe_water_left 0
+176 16 GO_pipe_water_left 0
+224 16 GO_pipe_water_right 0
+368 80 GO_fallingrock 0
+368 208 GO_fallingrock 0
+304 288 GO_bat 0
+84
+0 64 wl_tile-ceiling-1
+16 64 wl_tile-ceiling-2
+32 64 wl_tile-ceiling-3
+48 64 wl_tile-ceiling-4
+64 64 wl_tile-ceiling-5
+80 64 wl_tile-ceiling-1
+96 64 wl_tile-ceiling-2
+112 64 wl_tile-ceiling-3
+128 64 wl_tile-ceiling-4
+144 64 wl_tile-ceiling-5
+160 64 wl_tile-ceiling-1
+176 64 wl_tile-ceiling-2
+192 64 wl_tile-ceiling-3
+208 64 wl_tile-ceiling-2
+0 192 wl_tile-ceiling-1
+16 192 wl_tile-ceiling-2
+32 192 wl_tile-ceiling-3
+48 192 wl_tile-ceiling-4
+64 192 wl_tile-ceiling-5
+80 192 wl_tile-ceiling-1
+208 192 wl_tile-ceiling-1
+496 304 wl_tile-ground-wall-r
+496 288 wl_tile-wall-r1
+496 256 wl_tile-wall-r1
+496 240 wl_tile-wall-r1
+496 208 wl_tile-wall-r1
+496 192 wl_tile-ceiling-wall-r
+496 224 wl_tile-wall-r2
+496 272 wl_tile-wall-r2
+496 176 wl_tile-ground-wall-r
+496 160 wl_tile-wall-r1
+496 128 wl_tile-wall-r1
+496 112 wl_tile-wall-r1
+496 80 wl_tile-wall-r1
+496 144 wl_tile-wall-r2
+496 96 wl_tile-wall-r2
+496 64 wl_tile-ceiling-wall-r
+496 48 wl_tile-ground-wall-r
+496 0 wl_tile-wall-r1
+496 16 wl_tile-wall-r1
+496 32 wl_tile-wall-r2
+0 48 wl_tile-ground-wall-l
+0 16 wl_tile-wall-l1
+0 0 wl_tile-wall-l1
+0 32 wl_tile-wall-l2
+480 64 wl_tile-ceiling-2
+480 192 wl_tile-ceiling-2
+416 64 wl_tile-ceiling-2
+272 64 wl_tile-ceiling-2
+304 192 wl_tile-ceiling-2
+144 192 wl_tile-ceiling-2
+336 192 wl_tile-ceiling-2
+400 64 wl_tile-ceiling-3
+400 192 wl_tile-ceiling-3
+464 192 wl_tile-ceiling-3
+352 192 wl_tile-ceiling-3
+96 192 wl_tile-ceiling-3
+224 192 wl_tile-ceiling-3
+224 64 wl_tile-ceiling-3
+288 64 wl_tile-ceiling-3
+352 64 wl_tile-ceiling-3
+368 64 wl_tile-ceiling-4
+368 192 wl_tile-ceiling-4
+432 64 wl_tile-ceiling-4
+432 192 wl_tile-ceiling-4
+240 192 wl_tile-ceiling-4
+240 64 wl_tile-ceiling-4
+304 64 wl_tile-ceiling-4
+176 192 wl_tile-ceiling-4
+112 192 wl_tile-ceiling-4
+128 192 wl_tile-ceiling-5
+192 192 wl_tile-ceiling-5
+256 64 wl_tile-ceiling-5
+320 64 wl_tile-ceiling-5
+384 64 wl_tile-ceiling-5
+384 192 wl_tile-ceiling-5
+448 64 wl_tile-ceiling-5
+448 192 wl_tile-ceiling-5
+464 64 wl_tile-ceiling-1
+416 192 wl_tile-ceiling-1
+336 64 wl_tile-ceiling-1
+160 192 wl_tile-ceiling-1
+112 208 wl_tile_stalactite
+320 192 wl_tile-ceiling-1
+32
+416 304 GO_ropebottom 0
+416 288 GO_rope 0
+416 272 GO_rope 0
+416 256 GO_rope 0
+416 240 GO_rope 0
+416 224 GO_rope 0
+416 208 GO_rope 0
+416 192 GO_ropetop 0
+464 176 GO_ropebottom 0
+336 176 GO_ropebottom 0
+464 160 GO_rope 0
+464 144 GO_rope 0
+464 128 GO_rope 0
+464 112 GO_rope 0
+464 96 GO_rope 0
+464 80 GO_rope 0
+464 64 GO_ropetop 0
+336 64 GO_ropetop 0
+160 192 GO_ropetop 0
+160 208 GO_rope 0
+160 224 GO_rope 0
+160 240 GO_rope 0
+160 256 GO_rope 0
+160 272 GO_rope 0
+160 288 GO_rope 0
+160 304 GO_ropebottom 0
+336 80 GO_rope 0
+336 96 GO_rope 0
+336 112 GO_rope 0
+336 128 GO_rope 0
+336 144 GO_rope 0
+336 160 GO_rope 0
+0
+0
+when position(21 17 22 20) new(GO_item 29 17 15)
+
+
+

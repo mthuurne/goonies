@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Goonies
+Comment=Game based on the movie 'The Goonies'
+Exec=goonies
+Icon=goonies.png
+Terminal=false
+Type=Application
+Categories=Application;Game;ArcadeGame;
+StartupNotify=false
