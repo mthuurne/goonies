@@ -11,7 +11,7 @@
 #include "math.h"
 #include "string.h"
 
-#include "GL/gl.h"
+#include "GLES/gl.h"
 #include "GL/glu.h"
 #include "SDL.h"
 #include "SDL_mixer.h"
@@ -85,13 +85,27 @@ void G_Message::draw(float alpha)
             glColor4f(0, 0, 0, f);
         }
         glNormal3f(0.0, 0.0, 1.0);
-
+#if !defined(HAVE_GLES)
         glBegin(GL_QUADS);
         glVertex3f(0, 0, 0);
         glVertex3f(0, 480, 0);
         glVertex3f(640, 480, 0);
         glVertex3f(640, 0, 0);
         glEnd();
+#else
+	GLfloat vtx1[] = {
+	0, 0, 0,
+	0, 480, 0,
+	640,480, 0,
+	640, 0, 0
+	};
+      glEnableClientState(GL_VERTEX_ARRAY);
+ 
+      glVertexPointer(3, GL_FLOAT, 0, vtx1);
+      glDrawArrays(GL_TRIANGLE_FAN,0,4);
+ 
+      glDisableClientState(GL_VERTEX_ARRAY);
+#endif
     }
 
 	font_print_c(int(m_x),int(m_y), 0, 0, 1, alpha, "font", m_message, -2);

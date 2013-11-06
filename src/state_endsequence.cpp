@@ -11,7 +11,7 @@
 #include "stdlib.h"
 #include "string.h"
 
-#include "GL/gl.h"
+#include "GLES/gl.h"
 #include "GL/glu.h"
 #include "SDL.h"
 #include "SDL_mixer.h"
@@ -154,12 +154,28 @@ void TheGooniesApp::endsequence_draw(void)
                     m_game->draw(m_GLTM);
 
                 glColor4f(0, 0, 0, f);
+#ifndef HAVE_GLES
                 glBegin(GL_QUADS);
                 glVertex3f(0, 256, 0);
                 glVertex3f(0, 400, 0);
                 glVertex3f(640, 400, 0);
                 glVertex3f(640, 256, 0);
                 glEnd();
+#else
+		GLfloat vtx1[] = {
+		0, 256, 0,
+		0, 400, 0,
+		640, 400, 0,
+		640, 256, 0
+		};
+
+      glEnableClientState(GL_VERTEX_ARRAY);
+ 
+      glVertexPointer(3, GL_FLOAT, 0, vtx1);
+      glDrawArrays(GL_TRIANGLE_FAN,0,4);
+ 
+      glDisableClientState(GL_VERTEX_ARRAY);
+#endif
             }
             break;
         case 1: {			
@@ -204,13 +220,28 @@ void TheGooniesApp::endsequence_draw(void)
                 glScissor(screen_x(0), screen_y(60), screen_x(640), screen_y(360));
 
                 glColor4f(0, 0, 0, f);
+#ifndef HAVE_GLES
                 glBegin(GL_QUADS);
                 glVertex3f(0, 0, 0);
                 glVertex3f(0, 480, 0);
                 glVertex3f(640, 480, 0);
                 glVertex3f(640, 0, 0);
                 glEnd();
+#else
+		GLfloat vtx2[] = {
+		0, 0, 0,
+		0, 480, 0,
+		640, 480, 0,
+		640, 0, 0
+		};
 
+      glEnableClientState(GL_VERTEX_ARRAY);
+ 
+      glVertexPointer(3, GL_FLOAT, 0, vtx2);
+      glDrawArrays(GL_TRIANGLE_FAN,0,4);
+ 
+      glDisableClientState(GL_VERTEX_ARRAY);
+#endif
 				// sky:
 				m_GLTM->get
 					("ending-sky1")->draw(1, 1, 1, f, 0, 0, 0, 0, 1);
@@ -809,12 +840,28 @@ void TheGooniesApp::endsequence_draw(void)
 					f2 = float(m_state_cycle) / 50;
 
                 glColor4f(0, 0, 0, f2);
+#ifndef HAVE_GLES
                 glBegin(GL_QUADS);
                 glVertex3f(0, 0, 0);
                 glVertex3f(0, 480, 0);
                 glVertex3f(640, 480, 0);
                 glVertex3f(640, 0, 0);
                 glEnd();
+#else
+		GLfloat vtx3[] = {
+		0, 0, 0,
+		0, 480, 0,
+		640, 480, 0,
+		640, 0, 0
+		};
+
+      glEnableClientState(GL_VERTEX_ARRAY);
+ 
+      glVertexPointer(3, GL_FLOAT, 0, vtx3);
+      glDrawArrays(GL_TRIANGLE_FAN,0,4);
+ 
+      glDisableClientState(GL_VERTEX_ARRAY);
+#endif
             }
             break;
 
@@ -886,12 +933,28 @@ void TheGooniesApp::endsequence_draw(void)
 
                 if (f != 1) {
                     glColor4f(0, 0, 0, 1 - f);
+#ifndef HAVE_GLES
                     glBegin(GL_QUADS);
                     glVertex3f(0, 0, 0);
                     glVertex3f(0, 480, 0);
                     glVertex3f(640, 480, 0);
                     glVertex3f(640, 0, 0);
                     glEnd();
+#else
+		GLfloat vtx4[] = {
+		0, 0, 0,
+		0, 480, 0,
+		640, 480, 0,
+		640, 0, 0
+		};
+
+      glEnableClientState(GL_VERTEX_ARRAY);
+ 
+      glVertexPointer(3, GL_FLOAT, 0, vtx4);
+      glDrawArrays(GL_TRIANGLE_FAN,0,4);
+ 
+      glDisableClientState(GL_VERTEX_ARRAY);
+#endif
                 }
 
             }

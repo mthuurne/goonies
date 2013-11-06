@@ -1,6 +1,6 @@
 EXE = goonies
 SRC = src
-PREFIX = /usr
+PREFIX = /mnt/utmp/goonies
 EXTRADIR = ./build/linux
 
 GAMEDIR = $(PREFIX)/games
@@ -54,17 +54,18 @@ OBJS = \
 	$(SRC)/state_msx.o		$(SRC)/state_splash.o \
 	$(SRC)/state_titleanimation.o	$(SRC)/state_title.o \
 	$(SRC)/Symbol.o			$(SRC)/TheGooniesApp.o \
-	$(SRC)/TheGoonies.o		$(SRC)/Vector.o
+	$(SRC)/TheGoonies.o		$(SRC)/Vector.o $(SRC)/eglport.o
 
-CC = gcc
-CFLAGS = -g3 -O3 -Wno-write-strings `sdl-config --cflags` -I/usr/X11R6/include
-LDFLAGS = `sdl-config --libs` -L/usr/X11R6/lib/ -lSDL_image -lSDL_mixer -lGL -lGLU
+CC = arm-angstrom-linux-gnueabi-g++
+CFLAGS = -DPANDORA -DHAVE_GLES -O3 -pipe -march=armv7-a -mtune=cortex-a8 -mfpu=neon -mfloat-abi=softfp -ftree-vectorize -ffast-math -fsingle-precision-constant -fsigned-char -O3 -DHAVE_GLES=1 -DPANDORA=1 -Wno-write-strings `sdl-config --cflags` -I/mnt/utmp/goonies/include -L/mnt/utmp/goonies/lib -I/usr/local/angstrom/arm/arm-angstrom-linux-gnueabi/usr/X11R6/include -I/usr/local/angstrom/arm/arm-angstrom-linux-gnueabi/usr/include
+LDFLAGS = `sdl-config --libs` -L/usr/local/angstrom/arm/arm-angstrom-linux-gnueabi//usr/X11R6/lib/ -lSDL_image -lSDL_mixer -lGLES_CM -lEGL -lX11 -lGLUES_CM
 RM = rm -f
 CP = cp -r
 MD = mkdir -p
 ECHO = echo
 CHMOD = chmod
-STRIP = strip
+STRIP = arm-angstrom-linux-gnueabi-strip
+LD = arm-angstrom-linux-gnueabi-g++
 
 all: $(EXE)
 

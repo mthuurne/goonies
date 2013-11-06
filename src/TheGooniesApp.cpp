@@ -11,7 +11,8 @@
 #include "math.h"
 #include "string.h"
 
-#include "GL/gl.h"
+#include "GLES/gl.h"
+#include "eglport.h"
 #include "GL/glu.h"
 #include "SDL.h"
 #include "SDL_mixer.h"
@@ -117,8 +118,8 @@ TheGooniesApp::TheGooniesApp()
     m_keys_configuration[GKEY_RIGHT] = SDLK_RIGHT;
     m_keys_configuration[GKEY_DOWN] = SDLK_DOWN;
     m_keys_configuration[GKEY_LEFT] = SDLK_LEFT;
-    m_keys_configuration[GKEY_FIRE] = SDLK_SPACE;
-    m_keys_configuration[GKEY_PAUSE] = SDLK_F1;
+    m_keys_configuration[GKEY_FIRE] = SDLK_HOME;
+    m_keys_configuration[GKEY_PAUSE] = SDLK_p;
     m_keys_configuration[GKEY_QUIT] = SDLK_ESCAPE;
 
     m_sfx_volume = MIX_MAX_VOLUME;
@@ -298,15 +299,20 @@ void TheGooniesApp::draw()
     glDisable(GL_CULL_FACE);
     glDisable(GL_SCISSOR_TEST);
     glDisable(GL_DEPTH_TEST);
+#ifndef HAVE_GLES
     glPolygonMode(GL_FRONT, GL_FILL);
-
+#endif
     glClearColor(0, 0, 0, 0.0);
+#ifndef HAVE_GLES
     glViewport(0, 0, SCREEN_X, SCREEN_Y);
+#else
+    glViewport(0, 0, 800, 480);
+#endif
     ratio = (float)SCREEN_X / float(SCREEN_Y);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     gluPerspective(30.0, ratio, 1.0, 10240.0);
-    gluLookAt(320, 240, PERSPECTIVE_DISTANCE, 320, 240, 0, 0, -1, 0); /* for 640x480 better */
+    gluLookAt(400, 240, PERSPECTIVE_DISTANCE, 400, 240, 0, 0, -1, 0); /* for 640x480 better */
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
@@ -369,7 +375,11 @@ void TheGooniesApp::draw()
 
     glDisable(GL_BLEND);
 
-    SDL_GL_SwapBuffers();
+#if !defined(HAVE_GLES)
+        	SDL_GL_SwapBuffers();
+#else
+		EGL_SwapBuffers();
+#endif
 }
 
 

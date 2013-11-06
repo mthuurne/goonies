@@ -12,7 +12,7 @@
 #include "string.h"
 #include "assert.h"
 
-#include "GL/gl.h"
+#include "GLES/gl.h"
 #include "GL/glu.h"
 #include "SDL.h"
 #include "SDL_mixer.h"

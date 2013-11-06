@@ -1,7 +1,7 @@
 #ifndef _THEGOONIES_CONSTANTS
 #define _THEGOONIES_CONSTANTS
 
-#define SCREEN_X    640
+#define SCREEN_X    800
 #define SCREEN_Y    480
 
 #define PLAYER_MAX_ENERGY  64

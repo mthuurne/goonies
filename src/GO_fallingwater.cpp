@@ -10,7 +10,7 @@
 #include "stdlib.h"
 #include "string.h"
 
-#include "GL/gl.h"
+#include "GLES/gl.h"
 #include "GL/glu.h"
 #include "SDL.h"
 #include "SDL_image.h"
@@ -90,20 +90,23 @@ void GO_fallingwater::draw(GLTManager *GLTM)
 	// based on type (0 = water, 1 = lava)
 	// and if the water reflection effect is on or off
     if (m_type == 0) {
-		if (water_reflection) {
-			glColor4f(0.3f, 0.3f, 1.0f, 0.5f);
-		} else {
+// commented out here, as on Pandora, waterreflections doesn't show anyways.
+//		if (water_reflection) {
+//			glColor4f(0.3f, 0.3f, 1.0f, 0.5f);
+//		} else {
 			glColor4f(0.11f, 0.11f, 0.35f, 0.5f);
-		}
-    } else {
-		if (water_reflection) {
-			glColor4f(1.0f, 0.0f, 0.0f, 0.75f);
-		} else {
-			glColor4f(0.56f, 0.0f, 0.0f, 0.75f);
-		}
+//		}
+   } else {
+//		if (water_reflection) {
+//			glColor4f(1.0f, 0.0f, 0.0f, 0.5f);
+//		} else {
+			glColor4f(0.56f, 0.0f, 0.0f, 0.5f);
+//		}
 	}
 	
-    glNormal3f(0.0, 0.0, 1.0);
+//    glNormal3f(0.0, 0.0, 1.0);
+
+#ifndef HAVE_GLES
     glBegin(GL_QUADS);
     {
         glVertex3f(m_x, m_y, 0);
@@ -112,8 +115,21 @@ void GO_fallingwater::draw(GLTManager *GLTM)
         glVertex3f(m_x + m_dx, m_y, 0);
     }
     glEnd();
+#else
+	GLfloat vtx8[] = {
+		m_x, m_y, 0,
+		m_x, m_y + m_dy, 0,
+		m_x + m_dx, m_y + m_dy, 0,
+		m_x + m_dx, m_y, 0
+		};
+      glEnableClientState(GL_VERTEX_ARRAY);
 
-	if (water_reflection) {
+      glVertexPointer(3, GL_FLOAT, 0, vtx8); 
+      glDrawArrays(GL_TRIANGLE_FAN,0,4);
+ 
+      glDisableClientState(GL_VERTEX_ARRAY);
+#endif
+/*	if (water_reflection) {
 		bool tmp;
 		GLuint tname = m_map->get_water_info_texture();
 		
@@ -121,6 +137,7 @@ void GO_fallingwater::draw(GLTManager *GLTM)
 		if (!tmp)
 			glEnable(GL_TEXTURE_2D);
 		glBindTexture(GL_TEXTURE_2D, tname);
+#if !defined(HAVE_GLES)
 		glBegin(GL_QUADS);
 		{
 			float fx = m_x / 640.0f, fy = (400 - m_y) / 400.0f;
@@ -155,10 +172,53 @@ void GO_fallingwater::draw(GLTManager *GLTM)
 			glVertex3f(m_x + m_dx, m_y, 0);
 		}
 		glEnd();
+#else			
+			float fx = m_x / 640.0f, fy = (400 - m_y) / 400.0f;
+			float fdx = m_dx / 640.0f, fdy = m_dy / 400.0f;
+			float fsx;
+			float fsx2;
+			float fsy;
+			float fsy2;
 
+			if (m_type == 0) {
+				fsx = float(sin(m_x + m_state_cycle * 0.1) * 0.02f);
+				fsx2 = float(sin(m_x + m_dx + m_state_cycle * 0.1) * 0.02f);
+				fsy = float(sin(m_x + m_state_cycle * 0.15) * 0.01f);
+				fsy2 = float(sin(m_x + m_dy + m_state_cycle * 0.15) * 0.01f);
+			} else {
+				fsx = float(sin(m_x + m_state_cycle * 0.025) * 0.01f);
+				fsx2 = float(sin(m_x + m_dx + m_state_cycle * 0.025) * 0.01f);
+				fsy = float(sin(m_x + m_state_cycle * 0.0375) * 0.005f);
+				fsy2 = float(sin(m_x + m_dy + m_state_cycle * 0.0375) * 0.005f);
+			}
+			GLfloat vtx1[] = {
+			m_x, m_y, 0,
+			m_x, m_y + m_dy, 0,
+			m_x + m_dx, m_y + m_dy, 0,
+			m_x + m_dx, m_y, 0
+			};
+			GLfloat tex1[] = {
+			fx + fsx, fy + fsy,
+			fx + fsx, fy - fdy + fsy2,
+			fx + fdx + fsx2, fy - fdy + fsy2,
+			fx + fdx + fsx2, fy + fsy
+			};
+
+      glEnableClientState(GL_VERTEX_ARRAY);
+      glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+
+      glVertexPointer(3, GL_FLOAT, 0, vtx1);
+      glTexCoordPointer(2, GL_FLOAT, 0, tex1);   
+      glDrawArrays(GL_TRIANGLE_FAN,0,4);
+ 
+      glDisableClientState(GL_VERTEX_ARRAY);
+      glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+
+#endif
 		if (!tmp)
 			glDisable(GL_TEXTURE_2D);
-	}
+	} */
+
 }
 
 bool GO_fallingwater::is_a(Symbol *c)

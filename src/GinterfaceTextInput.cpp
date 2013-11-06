@@ -11,7 +11,7 @@
 #include "math.h"
 #include "string.h"
 
-#include "GL/gl.h"
+#include "GLES/gl.h"
 #include "GL/glu.h"
 #include "SDL.h"
 #include "SDL_mixer.h"
@@ -120,13 +120,27 @@ void G_TextInput::draw(float alpha)
             glColor4f(0, 0, 0, f);
         }
         glNormal3f(0.0, 0.0, 1.0);
-
+#if !defined(HAVE_GLES)
         glBegin(GL_QUADS);
         glVertex3f(0, 0, 0);
         glVertex3f(0, 480, 0);
         glVertex3f(640, 480, 0);
         glVertex3f(640, 0, 0);
         glEnd();
+#else
+	GLfloat vtx1[] = {
+	0, 0, 0,
+	0, 480, 0,
+	640,480, 0,
+	640, 0, 0
+	};
+      glEnableClientState(GL_VERTEX_ARRAY);
+ 
+      glVertexPointer(3, GL_FLOAT, 0, vtx1);
+      glDrawArrays(GL_TRIANGLE_FAN,0,4);
+ 
+      glDisableClientState(GL_VERTEX_ARRAY);
+#endif
     }
 
 	if (m_dy == 1) {
@@ -165,12 +179,27 @@ void G_TextInput::draw(float alpha)
 
 		glColor4f(0, 1, 0, float(0.5f+0.3*sin(m_cycle*0.2)));
         glNormal3f(0.0, 0.0, 1.0);
+#if !defined(HAVE_GLES)
         glBegin(GL_QUADS);
         glVertex3f(float(x1), m_y-12, 0);
         glVertex3f(float(x1), m_y+24, 0);
         glVertex3f(float(x1)+4, m_y+24, 0);
         glVertex3f(float(x1)+4, m_y-12, 0);
         glEnd();
+#else
+	GLfloat vtx2[] = {
+	float(x1), m_y-12, 0,
+	float(x1), m_y+24, 0,
+	float(x1)+4, m_y+24, 0,
+	float(x1)+4, m_y-12, 0
+	};
+      glEnableClientState(GL_VERTEX_ARRAY);
+ 
+      glVertexPointer(3, GL_FLOAT, 0, vtx2);
+      glDrawArrays(GL_TRIANGLE_FAN,0,4);
+ 
+      glDisableClientState(GL_VERTEX_ARRAY);
+#endif
 	}
 
 } /* G_TextInput::draw */

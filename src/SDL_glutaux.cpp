@@ -6,7 +6,8 @@
 #include "windows.h"
 #endif
 
-#include <GL/gl.h>
+#include <GLES/gl.h>
+#define GL_CLAMP GL_CLAMP_TO_EDGE
 
 #include "SDL.h"
 #include "SDL_image.h"
@@ -60,7 +61,9 @@ GLuint createTexture(SDL_Surface *sfc, float *tx, float *ty)
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
         //  glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
         //  glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, szx, szy, 0, GL_RGBA, GL_UNSIGNED_BYTE, sfc2->pixels);
+
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, szx, szy, 0, GL_RGBA, GL_UNSIGNED_BYTE, sfc2->pixels);
+
         SDL_FreeSurface(sfc2);
     } else {
         return 0;
@@ -92,13 +95,17 @@ GLuint createTextureClamp(SDL_Surface *sfc, float *tx, float *ty)
         glBindTexture(GL_TEXTURE_2D, tname);
         //  glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_REPEAT);
         //  glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_REPEAT);
+
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
         //  glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
         //  glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, szx, szy, 0, GL_RGBA, GL_UNSIGNED_BYTE, sfc2->pixels);
+
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, szx, szy, 0, GL_RGBA, GL_UNSIGNED_BYTE, sfc2->pixels);
+
         SDL_FreeSurface(sfc2);
     } else {
         return 0;
@@ -136,7 +143,9 @@ GLuint createTextureSmooth(SDL_Surface *sfc, float *tx, float *ty)
         //  glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, szx, szy, 0, GL_RGBA, GL_UNSIGNED_BYTE, sfc2->pixels);
+
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, szx, szy, 0, GL_RGBA, GL_UNSIGNED_BYTE, sfc2->pixels);
+
         SDL_FreeSurface(sfc2);
     } else {
         return 0;
@@ -168,13 +177,17 @@ GLuint createTextureClampSmooth(SDL_Surface *sfc, float *tx, float *ty)
         glBindTexture(GL_TEXTURE_2D, tname);
         //  glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_REPEAT);
         //  glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_REPEAT);
+
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+
         //  glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
         //  glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, szx, szy, 0, GL_RGBA, GL_UNSIGNED_BYTE, sfc2->pixels);
+
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, szx, szy, 0, GL_RGBA, GL_UNSIGNED_BYTE, sfc2->pixels);
+
         SDL_FreeSurface(sfc2);
     } else {
         return 0;
@@ -253,9 +266,23 @@ void gl_print_center(int x,int y,char *text,int r,int g,int b,TTF_Font *font)
 
 void gl_line(int x1, int y1, int x2, int y2, float r, float g, float b)
 {
-    glColor3f(r, g, b);
-    glBegin(GL_LINES);
-    glVertex3f(float(x1), float(y1), 0);
-    glVertex3f(float(x2), float(y2), 0);
-    glEnd();
+    glColor4f(r, g, b, 1.0f);
+
+#if !defined(HAVE_GLES)
+     glBegin(GL_LINES);
+     glVertex3f(float(x1), float(y1), 0);
+     glVertex3f(float(x2), float(y2), 0);
+     glEnd();
+#else
+    GLfloat line[] = {
+        float(x1), float(y1), 0,
+        float(x2), float(y2), 0
+    };
+ 
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glVertexPointer(3, GL_FLOAT, 0, line);
+    glDrawArrays(GL_LINES,0,2);
+    glDisableClientState(GL_VERTEX_ARRAY);
+#endif
+
 } /* gl_line */

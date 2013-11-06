@@ -11,7 +11,7 @@
 #include "stdlib.h"
 #include "string.h"
 
-#include "GL/gl.h"
+#include "GLES/gl.h"
 #include "GL/glu.h"
 #include "SDL.h"
 #include "SDL_image.h"
@@ -56,7 +56,9 @@ void GO_lava::draw(GLTManager *GLTM)
 		glColor4f(0.56f, 0.0f, 0.0f, 0.75f);
 		
     glNormal3f(0.0, 0.0, 1.0);
-    glBegin(GL_QUADS);
+
+#if !defined(HAVE_GLES)    
+glBegin(GL_QUADS);
     {
         glVertex3f(m_x, m_y, 0);
         glVertex3f(m_x, m_y + 20, 0);
@@ -64,7 +66,22 @@ void GO_lava::draw(GLTManager *GLTM)
         glVertex3f(m_x + 20, m_y, 0);
     }
     glEnd();
+#else
+	GLfloat vtx2[] = {
+	m_x, m_y, 0,
+	m_x, m_y + 20, 0,
+	m_x + 20, m_y + 20, 0,
+	m_x + 20, m_y, 0
+	};
+      glEnableClientState(GL_VERTEX_ARRAY);
 
+      glVertexPointer(3, GL_FLOAT, 0, vtx2);
+      
+      glDrawArrays(GL_TRIANGLE_FAN,0,4);
+
+      glDisableClientState(GL_VERTEX_ARRAY);
+
+#endif
     glColor4f(1.0f, 0.3f, 0.3f, 0.25f);
 
 	if (water_reflection) {
@@ -75,7 +92,8 @@ void GO_lava::draw(GLTManager *GLTM)
 		if (!tmp)
 			glEnable(GL_TEXTURE_2D);
 		glBindTexture(GL_TEXTURE_2D, tname);
-		glBegin(GL_QUADS);
+#if !defined(HAVE_GLES)		
+glBegin(GL_QUADS);
 		{
 			float fx = m_x / 640.0f, fy = (400 - (400 - m_y) * 3) / 400.0f;
 			float fdx = 20 / 640.0f, fdy = 20 / 133.33f;
@@ -98,7 +116,37 @@ void GO_lava::draw(GLTManager *GLTM)
 			glVertex3f(m_x + 20, m_y, 0);
 		}
 		glEnd();
+#else
+			float fx = m_x / 640.0f, fy = (400 - (400 - m_y) * 3) / 400.0f;
+			float fdx = 20 / 640.0f, fdy = 20 / 133.33f;
 
+			float fsx = float(sin(m_x + m_state_cycle * 0.025) * 0.01f);
+			float fsx2 = float(sin(m_x + 20 + m_state_cycle * 0.025) * 0.01f);
+			float fsy = float(sin(m_x + m_state_cycle * 0.0375) * 0.005f);
+			float fsy2 = float(sin(m_x + 20 + m_state_cycle * 0.0375) * 0.005f);
+			
+			GLfloat vtx1[] = {
+			m_x, m_y, 0,
+			m_x, m_y + 20, 0,
+			m_x + 20, m_y + 20, 0,
+			m_x + 20, m_y, 0
+			};
+			GLfloat tex1[] = {
+			fx + fsx, fy + fsy,
+			fx + fsx, fy + fdy + fsy2,
+			fx + fdx + fsx2, fy + fdy + fsy2,
+			fx + fdx + fsx2, fy + fsy
+			};
+      glEnableClientState(GL_VERTEX_ARRAY);
+      glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+ 
+      glVertexPointer(3, GL_FLOAT, 0, vtx1);
+      glTexCoordPointer(2, GL_FLOAT, 0, tex1);
+      glDrawArrays(GL_TRIANGLE_FAN,0,4);
+ 
+      glDisableClientState(GL_VERTEX_ARRAY);
+      glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+#endif
 		if (!tmp)
 			glDisable(GL_TEXTURE_2D);
 	}

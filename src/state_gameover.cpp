@@ -11,7 +11,7 @@
 #include "stdlib.h"
 #include "string.h"
 
-#include "GL/gl.h"
+#include "GLES/gl.h"
 #include "GL/glu.h"
 #include "SDL.h"
 #include "SDL_mixer.h"
@@ -89,13 +89,28 @@ void TheGooniesApp::gameover_draw(void)
         glColor4f(0, 0, 0, 1);
 
         glNormal3f(0.0, 0.0, 1.0);
-
+#ifndef HAVE_GLES
         glBegin(GL_QUADS);
         glVertex3f(0, 0, 0);
         glVertex3f(0, 480, 0);
         glVertex3f(f*640, 480, 0);
         glVertex3f(f*640, 0, 0);
         glEnd();
+#else
+		GLfloat vtx1[] = {
+		0, 0, 0,
+		0, 480, 0,
+		f*640, 480, 0,
+		f*640, 0, 0
+		};
+
+      glEnableClientState(GL_VERTEX_ARRAY);
+ 
+      glVertexPointer(3, GL_FLOAT, 0, vtx1);
+      glDrawArrays(GL_TRIANGLE_FAN,0,4);
+ 
+      glDisableClientState(GL_VERTEX_ARRAY);
+#endif
     }
 	
     if (m_gameover_state == 2) {

@@ -11,7 +11,7 @@
 #include "math.h"
 #include "string.h"
 
-#include "GL/gl.h"
+#include "GLES/gl.h"
 #include "GL/glu.h"
 #include "SDL.h"
 #include "SDL_mixer.h"
@@ -62,11 +62,11 @@ void G_Browser::draw(void)
 	draw(1);
 } /* G_Browser::draw */
 
-
 void G_Browser::draw(float alpha)
 {
-	glBegin(GL_QUADS);
 	glColor4f(0,0,0,alpha*0.5f);
+#if !defined(HAVE_GLES)
+	glBegin(GL_QUADS);
 	glVertex3f(m_x,m_y,0);
 	glVertex3f(m_x+m_dx,m_y,0);
 	glVertex3f(m_x+m_dx,m_y+m_dy,0);
@@ -92,7 +92,40 @@ void G_Browser::draw(float alpha)
 	glVertex3f(m_x+m_dx,m_y+m_dy,0);
 	glVertex3f(m_x,m_y+m_dy,0);	
 	glEnd();
+#else
+	GLfloat vtx3[] = {
+	m_x,m_y,0,
+	m_x+m_dx,m_y,0,
+	m_x+m_dx,m_y+m_dy,0,
+	m_x,m_y+m_dy,0,
 
+	m_x,m_y,0,
+	m_x+m_dx,m_y,0,
+	m_x+m_dx,m_y+4,0,
+	m_x,m_y+4,0,
+
+	m_x,m_y,0,
+	m_x+4,m_y,0,
+	m_x+4,m_y+m_dy,0,
+	m_x,m_y+m_dy,0,
+
+	m_x+m_dx-4,m_y,0,
+	m_x+m_dx,m_y,0,
+	m_x+m_dx,m_y+m_dy,0,
+	m_x+m_dx-4,m_y+m_dy,0,
+
+	m_x,m_y+m_dy-4,0,
+	m_x+m_dx,m_y+m_dy-4,0,
+	m_x+m_dx,m_y+m_dy,0,
+	m_x,m_y+m_dy,0
+	};
+      glEnableClientState(GL_VERTEX_ARRAY);
+ 
+      glVertexPointer(3, GL_FLOAT, 0, vtx3);
+      glDrawArrays(GL_TRIANGLE_FAN,0,4*5);
+
+      glDisableClientState(GL_VERTEX_ARRAY);
+#endif
 	// Draw the slider:
 	{
 		if (m_entries.Length()>0) {
@@ -113,13 +146,29 @@ void G_Browser::draw(float alpha)
 		} // if
 
 		if (m_slider_height>0) {
+
+glColor4f(0.5f,1,0.5f,alpha*0.5f);
+#if !defined(HAVE_GLES)
 			glBegin(GL_QUADS);
-			glColor4f(0.5f,1,0.5f,alpha*0.5f);
 			glVertex3f(m_x+m_dx-20,m_y+4+m_slider_pos,0);
 			glVertex3f(m_x+m_dx-4,m_y+4+m_slider_pos,0);
 			glVertex3f(m_x+m_dx-4,m_y+4+m_slider_pos+m_slider_height,0);
 			glVertex3f(m_x+m_dx-20,m_y+4+m_slider_pos+m_slider_height,0);
 			glEnd();
+#else
+			GLfloat vtx1[] = {
+			m_x+m_dx-20,m_y+4+m_slider_pos,0,
+			m_x+m_dx-4,m_y+4+m_slider_pos,0,
+			m_x+m_dx-4,m_y+4+m_slider_pos+m_slider_height,0,
+			m_x+m_dx-20,m_y+4+m_slider_pos+m_slider_height,0
+			};
+      glEnableClientState(GL_VERTEX_ARRAY);
+ 
+      glVertexPointer(3, GL_FLOAT, 0, vtx1);
+      glDrawArrays(GL_TRIANGLE_FAN,0,4);
+ 
+      glDisableClientState(GL_VERTEX_ARRAY);
+#endif
 		} // if
 	}
 
@@ -140,13 +189,30 @@ void G_Browser::draw(float alpha)
 		while(m_entries.Iterate(entry) && (y<m_y+m_dy)) {
 
 			if (m_mouse_over == i) {
+
+glColor4f(0.5f,1,0.5f,alpha*0.5f);
+#if !defined(HAVE_GLES)
 				glBegin(GL_QUADS);
-				glColor4f(0.5f,1,0.5f,alpha*0.5f);
 				glVertex3f(m_x+4,float(y+4),0);
 				glVertex3f(m_x+m_dx-4,float(y+4),0);
 				glVertex3f(m_x+m_dx-4,float(y+ROW_HEIGHT+4),0);
 				glVertex3f(m_x+4,float(y+ROW_HEIGHT+4),0);
 				glEnd();
+#else
+				GLfloat vtx2[] = {
+				m_x+4,float(y+4),0,
+				m_x+m_dx-4,float(y+4),0,
+				m_x+m_dx-4,float(y+ROW_HEIGHT+4),0,
+				m_x+4,float(y+ROW_HEIGHT+4),0
+				};
+
+      glEnableClientState(GL_VERTEX_ARRAY);
+ 
+      glVertexPointer(3, GL_FLOAT, 0, vtx2);
+      glDrawArrays(GL_TRIANGLE_FAN,0,4);
+ 
+      glDisableClientState(GL_VERTEX_ARRAY);
+#endif
 			} // if
 
 			if (m_selected == i) font_print(int(m_x+8), y-2, 0, 0, 1, alpha, "font_hl", entry, -2);

@@ -9,7 +9,7 @@
 
 #include "assert.h"
 
-#include "GL/gl.h"
+#include "GLES/gl.h"
 #include "GL/glu.h"
 #include "SDL.h"
 #include "SDL_image.h" 
@@ -897,15 +897,19 @@ void GLTile::draw(float r, float g, float b, float a)
 
             for (i = 0;i < nparts && !reload;i++) {
                 glBindTexture(GL_TEXTURE_2D, tex[i]);
+#ifndef HAVE_GLES
                 glGetTexParameteriv(GL_TEXTURE_2D, GL_TEXTURE_RESIDENT, &res);
-                if (res == GL_FALSE) {
+               
+if (res == GL_FALSE) {
                     reload = true;
+#endif
 #ifdef __DEBUG_MESSAGES 
                     //     output_debug_message("Texture not loaded: %i, tex %i, res %i (GL_TRUE = %i, GL_FALSE = %i)\n",i,tex[i],res,GL_TRUE,GL_FALSE);
                     output_debug_message("Out of texture memory (at cycle %i)! reloading textures...\n", current_cycle);
 #endif
-
+#ifndef HAVE_GLES
                 } // if
+#endif
             } // for
 
             last_texture_check = required_texture_check;
@@ -928,7 +932,7 @@ void GLTile::draw(float r, float g, float b, float a)
 
         glColor4f(r, g, b, a);
         glNormal3f(0.0, 0.0, 1.0);
-
+#ifndef HAVE_GLES
         glBegin(GL_QUADS);
         glTexCoord2f(0, 0);
         glVertex3f(float(x[i] - hot_x), float(y[i] - hot_y), 0);
@@ -943,6 +947,30 @@ void GLTile::draw(float r, float g, float b, float a)
         glVertex3f(float(x[i] + dx[i] - hot_x), float(y[i] - hot_y), 0);
 
         glEnd();
+#else
+	GLfloat vtx1[] = {
+	    float(x[i] - hot_x), float(y[i] - hot_y), 0,
+	    float(x[i] - hot_x), float(y[i] + dy[i] - hot_y), 0,
+	    float(x[i] + dx[i] - hot_x), float(y[i] + dy[i] - hot_y), 0,
+	    float(x[i] + dx[i] - hot_x), float(y[i] - hot_y), 0
+	};
+	GLfloat tex1[] = {
+	    0, 0,
+	    0, tex_coord_y[i],
+	    tex_coord_x[i], tex_coord_y[i],
+	    tex_coord_x[i], 0
+	};
+
+      glEnableClientState(GL_VERTEX_ARRAY);
+      glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+ 
+      glVertexPointer(3, GL_FLOAT, 0, vtx1);
+      glTexCoordPointer(2, GL_FLOAT, 0, tex1);
+      glDrawArrays(GL_TRIANGLE_FAN,0,4);
+ 
+      glDisableClientState(GL_VERTEX_ARRAY);
+      glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+#endif
     } /* for */
 
     // if (!tmp2) glDisable(GL_COLOR_MATERIAL);
@@ -1002,15 +1030,19 @@ void GLTile::draw_toffs(float r, float g, float b, float a, float toffs_x, float
 
             for (i = 0;i < nparts && !reload && last_texture_check == required_texture_check;i++) {
                 glBindTexture(GL_TEXTURE_2D, tex[i]);
+#ifndef HAVE_GLES
                 glGetTexParameteriv(GL_TEXTURE_2D, GL_TEXTURE_RESIDENT, &res);
-                if (res == GL_FALSE) {
+              
+if (res == GL_FALSE) {
                     reload = true;
+#endif
 #ifdef __DEBUG_MESSAGES 
                     //     output_debug_message("Texture not loaded: %i, tex %i, res %i (GL_TRUE = %i, GL_FALSE = %i)\n",i,tex[i],res,GL_TRUE,GL_FALSE);
                     output_debug_message("Out of texture memory (at cycle %i)! reloading textures...\n", current_cycle);
 #endif
-
+#ifndef HAVE_GLES
                 } // if
+#endif
             } // for
 
             last_texture_check = required_texture_check;
@@ -1034,7 +1066,7 @@ void GLTile::draw_toffs(float r, float g, float b, float a, float toffs_x, float
 
         glColor4f(r, g, b, a);
         glNormal3f(0.0, 0.0, 1.0);
-
+#ifndef HAVE_GLES
         glBegin(GL_QUADS);
 
         glTexCoord2f(real_x_offs, real_y_offs);
@@ -1050,7 +1082,32 @@ void GLTile::draw_toffs(float r, float g, float b, float a, float toffs_x, float
         glVertex3f(float(x[i] + dx[i] - hot_x), float(y[i] - hot_y), 0);
 
         glEnd();
-    } /* for */
+#else
+	GLfloat vtx2[] = {
+	float(x[i] - hot_x), float(y[i] - hot_y), 0,
+	float(x[i] - hot_x), float(y[i] + dy[i] - hot_y), 0,
+	float(x[i] + dx[i] - hot_x), float(y[i] + dy[i] - hot_y), 0,
+	float(x[i] + dx[i] - hot_x), float(y[i] - hot_y), 0
+	};
+	GLfloat tex2[] = {
+	real_x_offs, real_y_offs,
+	real_x_offs, real_y_offs + tex_coord_y[i],
+	real_x_offs + tex_coord_x[i], real_y_offs + tex_coord_y[i],
+	real_x_offs + tex_coord_x[i], real_y_offs
+	};
+      glEnableClientState(GL_VERTEX_ARRAY);
+      glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+ 
+      glVertexPointer(3, GL_FLOAT, 0, vtx2);
+      glTexCoordPointer(2, GL_FLOAT, 0, tex2);
+      glDrawArrays(GL_TRIANGLE_FAN,0,4);
+ 
+      glDisableClientState(GL_VERTEX_ARRAY);
+      glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+
+	
+#endif 
+   } /* for */
 
     // if (!tmp2) glDisable(GL_COLOR_MATERIAL);
     if (!tmp)

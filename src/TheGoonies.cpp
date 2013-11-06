@@ -11,7 +11,7 @@
 #include "math.h"
 #include "string.h"
 
-#include "GL/gl.h"
+#include "GLES/gl.h"
 #include "GL/glu.h"
 #include "SDL.h"
 #include "SDL_mixer.h"
@@ -800,12 +800,27 @@ void TheGoonies::draw(GLTManager *GLTM)
                                 if (fp != 0) {
                                     fclose(fp);
                                     glColor4f(0.1f, 0.1f, 0.1f, 1.0f);
+#if !defined(HAVE_GLES)
                                     glBegin(GL_QUADS);
                                     glVertex3f(4, 4, 0);
                                     glVertex3f(4, float(m_current_map->m_map->get_dy() - 4), 0);
                                     glVertex3f(float(m_current_map->m_map->get_dx() - 5), float(m_current_map->m_map->get_dy() - 4), 0);
                                     glVertex3f(float(m_current_map->m_map->get_dx() - 4), 4, 0);
                                     glEnd();
+#else				
+				GLfloat vtx1[] = {
+				4, 4, 0,
+				4, float(m_current_map->m_map->get_dy() - 4), 0,
+				float(m_current_map->m_map->get_dx() - 5), float(m_current_map->m_map->get_dy() - 4), 0,
+				float(m_current_map->m_map->get_dx() - 4), 4, 0
+				};
+      glEnableClientState(GL_VERTEX_ARRAY);
+ 
+      glVertexPointer(3, GL_FLOAT, 0, vtx1);
+      glDrawArrays(GL_TRIANGLE_FAN,0,4);
+ 
+      glDisableClientState(GL_VERTEX_ARRAY);
+#endif
                                 }
                             } else {
                                 if (m == m_current_map) {
@@ -835,12 +850,27 @@ void TheGoonies::draw(GLTManager *GLTM)
                                 } else {
                                     m->m_map->draw(GLTM, false);
                                     glColor4f(0.1f, 0.1f, 0.1f, 0.6f);
+#if !defined(HAVE_GLES)
                                     glBegin(GL_QUADS);
                                     glVertex3f(0, 0, 0);
                                     glVertex3f(0, float(m_current_map->m_map->get_dy()), 0);
                                     glVertex3f(float(m_current_map->m_map->get_dx()), float(m_current_map->m_map->get_dy()), 0);
                                     glVertex3f(float(m_current_map->m_map->get_dx()), 0, 0);
                                     glEnd();
+#else
+				GLfloat vtx2[] = {
+				0, 0, 0,
+				0, float(m_current_map->m_map->get_dy()), 0,
+				float(m_current_map->m_map->get_dx()), float(m_current_map->m_map->get_dy()), 0,
+				float(m_current_map->m_map->get_dx()), 0, 0
+				};
+      glEnableClientState(GL_VERTEX_ARRAY);
+ 
+      glVertexPointer(3, GL_FLOAT, 0, vtx2);
+      glDrawArrays(GL_TRIANGLE_FAN,0,4);
+ 
+      glDisableClientState(GL_VERTEX_ARRAY);
+#endif
                                 }
                             }
                             glPopMatrix();
@@ -890,12 +920,28 @@ void TheGoonies::draw(GLTManager *GLTM)
                     f = (150 - m_cycle) / 75.0f;
                 glColor4f(0, 0, 0, f);
                 glNormal3f(0.0, 0.0, 1.0);
+#ifndef HAVE_GLES
                 glBegin(GL_QUADS);
                 glVertex3f(0, 0, 0);
                 glVertex3f(0, 480, 0);
                 glVertex3f(640, 480, 0);
                 glVertex3f(640, 0, 0);
                 glEnd();
+#else
+		GLfloat vtx3[] = {
+		0, 0, 0,
+		0, 480, 0,
+		640, 480, 0,
+		640, 0, 0
+		};
+
+      glEnableClientState(GL_VERTEX_ARRAY);
+ 
+      glVertexPointer(3, GL_FLOAT, 0, vtx3);
+      glDrawArrays(GL_TRIANGLE_FAN,0,4);
+ 
+      glDisableClientState(GL_VERTEX_ARRAY);
+#endif
             }
 
             // 1: text appearing
@@ -935,13 +981,28 @@ void TheGoonies::draw(GLTManager *GLTM)
             glColor4f(0, 0, 0, f);
         }
         glNormal3f(0.0, 0.0, 1.0);
-
+#ifndef HAVE_GLES
         glBegin(GL_QUADS);
         glVertex3f(0, 0, 0);
         glVertex3f(0, 480, 0);
         glVertex3f(640, 480, 0);
         glVertex3f(640, 0, 0);
         glEnd();
+#else
+		GLfloat vtx4[] = {
+		0, 0, 0,
+		0, 480, 0,
+		640, 480, 0,
+		640, 0, 0
+		};
+
+      glEnableClientState(GL_VERTEX_ARRAY);
+ 
+      glVertexPointer(3, GL_FLOAT, 0, vtx4);
+      glDrawArrays(GL_TRIANGLE_FAN,0,4);
+ 
+      glDisableClientState(GL_VERTEX_ARRAY);
+#endif
     }
 	
     // display hud:

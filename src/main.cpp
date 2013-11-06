@@ -12,7 +12,8 @@
 #include "string.h"
 #include "time.h"
 
-#include "GL/gl.h"
+#include "GLES/gl.h"
+#include "eglport.h"
 #include "GL/glu.h"
 #include "SDL.h"
 #include "SDL_mixer.h"
@@ -76,19 +77,29 @@ int current_cycle = 0;
 
 /*      AUXILIAR FUNCTION DEFINITION:       */
 
-
 SDL_Surface *toogle_video_mode(bool fullscreen)
 {
+#if !defined(HAVE_GLES)
     SDL_Surface *sfc = SDL_SetVideoMode(SCREEN_X, SCREEN_Y, COLOUR_DEPTH, SDL_OPENGL | (fullscreen ? SDL_FULLSCREEN : 0));
+#endif
     SDL_WM_SetCaption(application_name, 0);
+#if !defined(PANDORA)
     SDL_ShowCursor(SDL_DISABLE);
+#else
+    //will need to add code for the cursor fix here
+#endif
+
+#if !defined(HAVE_GLES)
     GLTile::reload_textures();
 
     SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8);
     SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8);
     SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 8);
     SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+
     return sfc;
+#endif
+
 } /* toogle_video_mode */
 
 
@@ -111,6 +122,11 @@ SDL_Surface *initialization(int flags)
 
         return 0;
     } /* if */
+#if defined(HAVE_GLES)
+       	if (!EGL_Open())
+		exit(1);
+#endif
+
 
 #ifdef __DEBUG_MESSAGES
     output_debug_message("SDL initialized\n");
@@ -154,6 +170,7 @@ SDL_Surface *initialization(int flags)
     flags = SDL_OPENGL | flags;
 
     // check for openGL support
+#if !defined(HAVE_GLES)
     if (!SDL_VideoModeOK(SCREEN_X, SCREEN_Y, bpp, flags)) {
         // no support; print message and abort
         printf("Hmm, your system doesn't support OpenGL...\n");
@@ -161,6 +178,11 @@ SDL_Surface *initialization(int flags)
     }
 
     screen = SDL_SetVideoMode(SCREEN_X, SCREEN_Y, bpp, flags);
+#else
+    screen = SDL_SetVideoMode(640, 480, 0, SDL_SWSURFACE | SDL_FULLSCREEN);
+    EGL_Init();
+#endif
+
     if (screen == 0) {
 #ifdef __DEBUG_MESSAGES
         output_debug_message("Video mode set failed: %s\n", SDL_GetError());
@@ -208,13 +230,20 @@ void finalization()
 
     // FIXME: apparently, sometimes windows' resolution doesn't get restored properly
     // a stupid workaround is to switch back to windowed mode before exit
-    if (fullscreen) {
+#ifndef HAVE_GLES 
+   if (fullscreen) {
         SDL_SetVideoMode(SCREEN_X, SCREEN_Y, COLOUR_DEPTH, SDL_OPENGL | 0);
     }
+#endif
     if (sound) {
         Sound_release();
     }
+#if !defined(HAVE_GLES)
     SDL_Quit();
+#else
+    EGL_Destroy();
+    SDL_Quit();
+#endif
 
 #ifdef __DEBUG_MESSAGES
 

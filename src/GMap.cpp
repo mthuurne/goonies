@@ -12,7 +12,8 @@
 #include "math.h"
 #include "assert.h"
 
-#include "GL/gl.h"
+#include "GLES/gl.h"
+#define GL_CLAMP GL_CLAMP_TO_EDGE
 #include "GL/glu.h"
 #include "SDL.h"
 #include "SDL_image.h"
@@ -666,12 +667,15 @@ void GMap::get_water_info(void)
         glGenTextures(1, &m_water_info_texture);
         glPixelStorei(GL_UNPACK_ALIGNMENT, m_water_info_texture);
         glBindTexture(GL_TEXTURE_2D, m_water_info_texture);
+
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+#ifndef HAVE_GLES
         glCopyTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, 0, 0, 256, 256, 0);
-
+#endif
         m_water_info_captured = true;
     }
 }
@@ -742,6 +746,7 @@ void GMap::draw_darkened_area(int player_x, int player_y)
     glPushMatrix();
     glTranslatef(float(player_x), float(player_y), 0);
     for (i = 0;i < n_steps;i++) {
+#ifndef HAVE_GLES
         glBegin(GL_QUADS);
         glColor4f(0, 0, 0, 0);
         glVertex3f(float(cos(inc*i)*x_radius), float(sin(inc*i)*y_radius), 0);
@@ -752,8 +757,34 @@ void GMap::draw_darkened_area(int player_x, int player_y)
         glColor4f(0, 0, 0, 0);
         glVertex3f(float(cos(inc*(i + 1))*x_radius), float(sin(inc*(i + 1))*y_radius), 0);
         glEnd();
+#else
+	GLfloat vtx2[] = {
+	    float(cos(inc*i)*x_radius), float(sin(inc*i)*y_radius), 0,
+	    float(cos(inc*i)*x_radius*crispness), float(sin(inc*i)*y_radius*crispness), 0,
+	    float(cos(inc*(i + 1))*x_radius*crispness), float(sin(inc*(i + 1))*y_radius*crispness), 0,
+	    float(cos(inc*(i + 1))*x_radius), float(sin(inc*(i + 1))*y_radius), 0
+	};
+	GLfloat col2[] = {
+	    0, 0, 0, 0,
+	    0, 0, 0, darkness,
+	    0, 0, 0, darkness,
+	    0, 0, 0, 0,
+	};
+
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glEnableClientState(GL_COLOR_ARRAY);
+ 
+    glVertexPointer(3, GL_FLOAT, 0, vtx2);
+    glColorPointer(4, GL_FLOAT, 0, col2);
+    glDrawArrays(GL_TRIANGLE_FAN,0,4);
+ 
+    glDisableClientState(GL_COLOR_ARRAY);
+    glDisableClientState(GL_VERTEX_ARRAY);
+	
+#endif
     }
     for (i = 0;i < n_steps;i++) {
+#ifndef HAVE_GLES
         glBegin(GL_QUADS);
         glColor4f(0, 0, 0, darkness);
         glVertex3f(float(cos(inc*i)*x_radius*crispness), float(sin(inc*i)*y_radius*crispness), 0);
@@ -764,6 +795,31 @@ void GMap::draw_darkened_area(int player_x, int player_y)
         glColor4f(0, 0, 0, darkness);
         glVertex3f(float(cos(inc*(i + 1))*x_radius*crispness), float(sin(inc*(i + 1))*y_radius*crispness), 0);
         glEnd();
+#else
+        GLfloat vtx1[] = {
+            float(cos(inc*i)*x_radius*crispness), float(sin(inc*i)*y_radius*crispness), 0,
+            float(cos(inc*i)*10000), float(sin(inc*i)*10000), 0,
+            float(cos(inc*(i + 1))*10000), float(sin(inc*(i + 1))*10000), 0,
+            float(cos(inc*(i + 1))*x_radius*crispness), float(sin(inc*(i + 1))*y_radius*crispness), 0
+        };
+        GLfloat col1[] = {
+            0, 0, 0, darkness,
+            0, 0, 0, darkness,
+            0, 0, 0, darkness,
+            0, 0, 0, darkness
+        };
+
+        glEnableClientState(GL_VERTEX_ARRAY);
+        glEnableClientState(GL_COLOR_ARRAY);
+ 
+        glVertexPointer(3, GL_FLOAT, 0, vtx1);
+        glColorPointer(4, GL_FLOAT, 0, col1);
+        glDrawArrays(GL_TRIANGLE_FAN,0,4);
+ 
+        glDisableClientState(GL_COLOR_ARRAY);
+        glDisableClientState(GL_VERTEX_ARRAY);
+
+#endif
     }
     glPopMatrix();
 

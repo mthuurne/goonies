@@ -11,7 +11,7 @@
 #include "stdlib.h"
 #include "string.h"
 
-#include "GL/gl.h"
+#include "GLES/gl.h"
 #include "GL/glu.h"
 #include "SDL.h"
 #include "SDL_mixer.h"
@@ -105,7 +105,7 @@ int TheGooniesApp::howtoplay_cycle(KEYBOARDSTATE *k)
                     k->m_joystick[VC_LEFT] = true;
                 if (m_howtoplay_cycle > 635 && m_howtoplay_cycle < 700)
                     k->m_joystick[VC_DOWN] = true;
-                if (m_howtoplay_cycle > 800 && m_howtoplay_cycle < 850)
+                if (m_howtoplay_cycle > 640 && m_howtoplay_cycle < 850)
                     k->m_joystick[VC_DOWN] = true;
 
                 // punch
@@ -331,12 +331,28 @@ void TheGooniesApp::howtoplay_draw(void)
 			f = float(m_howtoplay_cycle) / 50;
             glColor4f(0, 0, 0, f);
 			glNormal3f(0.0, 0.0, 1.0);
+#ifndef HAVE_GLES
 			glBegin(GL_QUADS);
 			glVertex3f(0, 0, 0);
 			glVertex3f(0, 480, 0);
 			glVertex3f(640, 480, 0);
 			glVertex3f(640, 0, 0);
 			glEnd();
+#else
+		GLfloat vtx1[] = {
+		0, 0, 0,
+		0, 480, 0,
+		640, 480, 0,
+		640, 0, 0
+		};
+
+      glEnableClientState(GL_VERTEX_ARRAY);
+ 
+      glVertexPointer(3, GL_FLOAT, 0, vtx1);
+      glDrawArrays(GL_TRIANGLE_FAN,0,4);
+ 
+      glDisableClientState(GL_VERTEX_ARRAY);
+#endif
 		}
 		break;
 	case 3:

@@ -11,7 +11,7 @@
 #include "stdlib.h"
 #include "string.h"
 
-#include "GL/gl.h"
+#include "GLES/gl.h"
 #include "GL/glu.h"
 #include "SDL.h"
 #include "SDL_mixer.h"
@@ -256,7 +256,7 @@ int TheGooniesApp::title_cycle(KEYBOARDSTATE *k)
 
                         if (m_mouse_button == 1 ||
 							(k->keyboard[m_keys_configuration[GKEY_FIRE]] && !k->old_keyboard[m_keys_configuration[GKEY_FIRE]]) ||
-                            (k->keyboard[SDLK_RETURN] && !k->old_keyboard[SDLK_RETURN]) ||
+                            (k->keyboard[SDLK_HOME] && !k->old_keyboard[SDLK_HOME]) ||
 							(k->keyboard[(k->joystick_0_pos + 0 * k->joystick_size + 4)] && !k->old_keyboard[(k->joystick_0_pos + 0 * k->joystick_size + 4)]))
                         {
                             if (m_title_option_selected == 0 ||
@@ -330,7 +330,7 @@ int TheGooniesApp::title_cycle(KEYBOARDSTATE *k)
                             m_SFXM->SFX_play("sfx/cursor_select", m_sfx_volume);
                         }
 
-                        if ((k->keyboard[SDLK_RETURN] && !k->old_keyboard[SDLK_RETURN]))
+                        if ((k->keyboard[SDLK_HOME] && !k->old_keyboard[SDLK_HOME]))
                         {
                             m_title_state = 2;
                             m_state_cycle = 0;
@@ -397,7 +397,7 @@ int TheGooniesApp::title_cycle(KEYBOARDSTATE *k)
 
                         if (m_mouse_button == 1 ||
 							(k->keyboard[m_keys_configuration[GKEY_FIRE]] && !k->old_keyboard[m_keys_configuration[GKEY_FIRE]]) ||
-                                (k->keyboard[SDLK_RETURN] && !k->old_keyboard[SDLK_RETURN]) ||
+                                (k->keyboard[SDLK_HOME] && !k->old_keyboard[SDLK_HOME]) ||
 							(k->keyboard[(k->joystick_0_pos + 0 * k->joystick_size + 4)] && !k->old_keyboard[(k->joystick_0_pos + 0 * k->joystick_size + 4)]))
 							
                         {
@@ -514,7 +514,7 @@ int TheGooniesApp::title_cycle(KEYBOARDSTATE *k)
 
                             if (m_mouse_button == 1 ||
 								(k->keyboard[m_keys_configuration[GKEY_FIRE]] && !k->old_keyboard[m_keys_configuration[GKEY_FIRE]]) ||
-                                (k->keyboard[SDLK_RETURN] && !k->old_keyboard[SDLK_RETURN]) ||
+                                (k->keyboard[SDLK_HOME] && !k->old_keyboard[SDLK_HOME]) ||
 								(k->keyboard[(k->joystick_0_pos + 0 * k->joystick_size + 4)] && !k->old_keyboard[(k->joystick_0_pos + 0 * k->joystick_size + 4)])) {
 								
                                 if (m_title_option_selected == 7) {
@@ -559,7 +559,7 @@ int TheGooniesApp::title_cycle(KEYBOARDSTATE *k)
 					
 					if (m_mouse_button == 1 ||
 						(k->keyboard[m_keys_configuration[GKEY_FIRE]] && !k->old_keyboard[m_keys_configuration[GKEY_FIRE]]) ||
-						(k->keyboard[SDLK_RETURN] && !k->old_keyboard[SDLK_RETURN]) ||
+						(k->keyboard[SDLK_HOME] && !k->old_keyboard[SDLK_HOME]) ||
 						(k->keyboard[(k->joystick_0_pos + 0 * k->joystick_size + 4)] && !k->old_keyboard[(k->joystick_0_pos + 0 * k->joystick_size + 4)]))
 					{
 						if (m_title_option_selected == 0) {
@@ -671,7 +671,7 @@ int TheGooniesApp::title_cycle(KEYBOARDSTATE *k)
 					
 					if (m_mouse_button == 1 ||
 						(k->keyboard[m_keys_configuration[GKEY_FIRE]] && !k->old_keyboard[m_keys_configuration[GKEY_FIRE]]) ||
-						(k->keyboard[SDLK_RETURN] && !k->old_keyboard[SDLK_RETURN]) ||
+						(k->keyboard[SDLK_HOME] && !k->old_keyboard[SDLK_HOME]) ||
 						(k->keyboard[(k->joystick_0_pos + 0 * k->joystick_size + 4)] && !k->old_keyboard[(k->joystick_0_pos + 0 * k->joystick_size + 4)]))
 					{
 						if (m_title_option_selected == 0) {
@@ -751,13 +751,28 @@ void TheGooniesApp::title_draw(void)
                         glColor4f(0, 0, 0, f);
                     }
                     glNormal3f(0.0, 0.0, 1.0);
-
+#ifndef HAVE_GLES
                     glBegin(GL_QUADS);
                     glVertex3f(0, 0, 0);
                     glVertex3f(0, 480, 0);
                     glVertex3f(640, 480, 0);
                     glVertex3f(640, 0, 0);
                     glEnd();
+#else
+		GLfloat vtx1[] = {
+		0, 0, 0,
+		0, 480, 0,
+		640, 480, 0,
+		640, 0, 0
+		};
+
+      glEnableClientState(GL_VERTEX_ARRAY);
+ 
+      glVertexPointer(3, GL_FLOAT, 0, vtx1);
+      glDrawArrays(GL_TRIANGLE_FAN,0,4);
+ 
+      glDisableClientState(GL_VERTEX_ARRAY);
+#endif
                 }
             }
             break;
@@ -1044,13 +1059,28 @@ void TheGooniesApp::title_draw(void)
                     glColor4f(0, 0, 0, f);
                 }
                 glNormal3f(0.0, 0.0, 1.0);
-
+#ifndef HAVE_GLES
                 glBegin(GL_QUADS);
                 glVertex3f(0, 0, 0);
                 glVertex3f(0, 480, 0);
                 glVertex3f(640, 480, 0);
                 glVertex3f(640, 0, 0);
                 glEnd();
+#else
+		GLfloat vtx2[] = {
+		0, 0, 0,
+		0, 480, 0,
+		640, 480, 0,
+		640, 0, 0
+		};
+
+      glEnableClientState(GL_VERTEX_ARRAY);
+ 
+      glVertexPointer(3, GL_FLOAT, 0, vtx2);
+      glDrawArrays(GL_TRIANGLE_FAN,0,4);
+ 
+      glDisableClientState(GL_VERTEX_ARRAY);
+#endif
             }
             break;
     }

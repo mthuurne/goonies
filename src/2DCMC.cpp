@@ -8,7 +8,7 @@
 
 #include "math.h"
 
-#include "GL/gl.h"
+#include <GLES/gl.h>
 #include "GL/glu.h"
 #include "SDL.h"
 
@@ -55,6 +55,7 @@ void C2DCMC::draw(float r, float g, float b, float a)
     if (!empty) {
         glColor4f(r, g, b, a);
 
+#if !defined(HAVE_GLES)
         /* BBOX: */
         glBegin(GL_LINES);
         glVertex3f(x[0], y[0], 0);
@@ -69,7 +70,25 @@ void C2DCMC::draw(float r, float g, float b, float a)
         glVertex3f(x[0], y[1], 0);
         glVertex3f(x[0], y[0], 0);
         glEnd();
+#else
+	GLfloat line[] = {
+	    x[0], y[0], 0,
+	    x[1], y[0], 0,
+	    x[1], y[0], 0,
+	    x[1], y[1], 0,
+	    x[1], y[1], 0,
+	    x[0], y[1], 0,
+	    x[0], y[1], 0,
+	    x[0], y[0], 0
+	};
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glVertexPointer(3, GL_FLOAT, 0, line);
+    glDrawArrays(GL_LINES,0,8);
+    glDisableClientState(GL_VERTEX_ARRAY);
 
+#endif
+
+#if !defined(HAVE_GLES)
         /* CENTER: */
         glBegin(GL_LINES);
         glVertex3f( -2, -2, 0);
@@ -78,7 +97,18 @@ void C2DCMC::draw(float r, float g, float b, float a)
         glVertex3f(2, -2, 0);
         glVertex3f( -2, 2, 0);
         glEnd();
-
+#else
+	GLfloat line2[] = {
+	    -2, -2, 0,
+	    2, 2, 0,
+	    2, -2, 0,
+	    -2, 2, 0,
+	};
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glVertexPointer(3, GL_FLOAT, 0, line);
+    glDrawArrays(GL_LINES,0,4);
+    glDisableClientState(GL_VERTEX_ARRAY);
+#endif
         /* QUICK COLLISION CIRCLE: */
         /*
           float a=0;

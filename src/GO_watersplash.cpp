@@ -11,7 +11,7 @@
 #include "stdlib.h"
 #include "string.h"
 
-#include "GL/gl.h"
+#include "GLES/gl.h"
 #include "GL/glu.h"
 #include "SDL.h"
 #include "SDL_image.h"
@@ -70,6 +70,7 @@ void GO_watersplash::draw(GLTManager *GLTM)
     glTranslatef(m_x + 2, m_y + 2, 0);
     glRotatef(float(m_state_cycle*8), 0, 0, 1);
     glScalef(f2, f2, 1);
+#if !defined(HAVE_GLES)
     glBegin(GL_QUADS);
     {
         glVertex3f( -2, -2, 0);
@@ -78,6 +79,20 @@ void GO_watersplash::draw(GLTManager *GLTM)
         glVertex3f(2, -2, 0);
     }
     glEnd();
+#else
+	GLfloat vtx1[] = {
+	-2, -2, 0,
+	-2, 2, 0,
+	2, 2, 0,
+	2, -2, 0
+	};
+      glEnableClientState(GL_VERTEX_ARRAY);
+
+      glVertexPointer(3, GL_FLOAT, 0, vtx1);
+      glDrawArrays(GL_TRIANGLE_FAN,0,4);
+ 
+      glDisableClientState(GL_VERTEX_ARRAY);
+#endif
     glPopMatrix();
 }
 
