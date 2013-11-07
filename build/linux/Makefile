@@ -1,6 +1,24 @@
+ifeq ($(TARGET),pandora)
+PREFIX = /mnt/utmp/goonies
+CROSS = arm-angstrom-linux-gnueabi-
+else ifeq ($(TARGET),gcw0)
+PREFIX = install
+CROSS = mipsel-gcw0-linux-uclibc-
+else ifeq ($(TARGET),)
+$(error Please specify TARGET)
+else
+$(error Unsupported TARGET: $(TARGET))
+endif
+$(info Target: $(TARGET))
+
+FLAVOR ?= release
+ifeq ($(filter $(FLAVOR),release debug),)
+$(error Unknown FLAVOR: $(FLAVOR))
+endif
+$(info Flavor: $(FLAVOR))
+
 EXE = goonies
 SRC = src
-PREFIX = /mnt/utmp/goonies
 EXTRADIR = ./build/linux
 
 GAMEDIR = $(PREFIX)/games
@@ -13,73 +31,92 @@ DATA = graphics maps sound
 ICON = goonies.png
 DESKTOP = goonies.desktop
 
-OBJS = \
-	$(SRC)/2DCMC.o			$(SRC)/auxiliar.o \
-	$(SRC)/debug.o			$(SRC)/font_extractor.o \
-	$(SRC)/geometrics.o		$(SRC)/GinterfaceBrowser.o \
-	$(SRC)/GinterfaceButton.o	$(SRC)/GinterfaceConfirmation.o \
-	$(SRC)/Ginterface.o		$(SRC)/GinterfaceMessage.o \
-	$(SRC)/GinterfaceSButton.o	$(SRC)/GinterfaceText.o \
-	$(SRC)/GinterfaceTextInput.o	$(SRC)/GLTile.o \
-	$(SRC)/GLTManager.o		$(SRC)/GMap.o \
-	$(SRC)/GMapLayer.o		$(SRC)/GO_bat.o \
-	$(SRC)/GO_bigrock.o		$(SRC)/GObject.o \
-	$(SRC)/GObjectCreator.o		$(SRC)/GO_bone.o \
-	$(SRC)/GO_bridge.o		$(SRC)/GO_bullet.o \
-	$(SRC)/GO_cagedoor.o		$(SRC)/GO_character.o \
-	$(SRC)/GO_closingwall.o		$(SRC)/GO_coin.o \
-	$(SRC)/GO_drop.o		$(SRC)/GO_dropgenerator.o \
-	$(SRC)/GO_enemy.o		$(SRC)/GO_entrydoor.o \
-	$(SRC)/GO_exitdoor.o		$(SRC)/GO_fallingrock.o \
-	$(SRC)/GO_fallingwater.o	$(SRC)/GO_flame.o \
-	$(SRC)/GO_fratelli.o		$(SRC)/GO_ghost.o \
-	$(SRC)/GO_item.o		$(SRC)/GO_jumpingskull.o \
-	$(SRC)/GO_key.o			$(SRC)/GO_lava.o \
-	$(SRC)/GO_musicalnote.o		$(SRC)/GooniesScript.o \
-	$(SRC)/GO_pipe_water.o		$(SRC)/GO_rope.o \
-	$(SRC)/GO_skeleton.o		$(SRC)/GO_skull.o \
-	$(SRC)/GO_skulldoor.o		$(SRC)/GO_trickyskull.o \
-	$(SRC)/GO_water.o		$(SRC)/GO_wateropening.o \
-	$(SRC)/GO_watersplash.o		$(SRC)/keyboardstate.o \
-	$(SRC)/Level.o			$(SRC)/LevelPack.o \
-	$(SRC)/main.o			$(SRC)/MusicManager.o \
-	$(SRC)/PlacedGLTile.o		$(SRC)/ranrotb.o \
-	$(SRC)/SDL_glutaux.o		$(SRC)/SFXManager.o \
-	$(SRC)/sound.o			$(SRC)/SoundManager.o \
-	$(SRC)/state_credits.o		$(SRC)/state_editor.o \
-	$(SRC)/state_endsequence.o	$(SRC)/state_game.o \
-	$(SRC)/state_gameover.o		$(SRC)/state_gamestart.o \
-	$(SRC)/state_howtoplay.o	$(SRC)/state_interlevel.o \
-	$(SRC)/state_konami.o		$(SRC)/state_mapeditor.o \
-	$(SRC)/state_msx.o		$(SRC)/state_splash.o \
-	$(SRC)/state_titleanimation.o	$(SRC)/state_title.o \
-	$(SRC)/Symbol.o			$(SRC)/TheGooniesApp.o \
-	$(SRC)/TheGoonies.o		$(SRC)/Vector.o $(SRC)/eglport.o
+OUTDIR := output/$(TARGET)/$(FLAVOR)
+OBJDIR := $(OUTDIR)/obj
+EXEDIR := $(OUTDIR)/bin
 
-CC = arm-angstrom-linux-gnueabi-g++
-CFLAGS = -DPANDORA -DHAVE_GLES -O3 -pipe -march=armv7-a -mtune=cortex-a8 -mfpu=neon -mfloat-abi=softfp -ftree-vectorize -ffast-math -fsingle-precision-constant -fsigned-char -O3 -DHAVE_GLES=1 -DPANDORA=1 -Wno-write-strings `sdl-config --cflags` -I/mnt/utmp/goonies/include -L/mnt/utmp/goonies/lib -I/usr/local/angstrom/arm/arm-angstrom-linux-gnueabi/usr/X11R6/include -I/usr/local/angstrom/arm/arm-angstrom-linux-gnueabi/usr/include
-LDFLAGS = `sdl-config --libs` -L/usr/local/angstrom/arm/arm-angstrom-linux-gnueabi//usr/X11R6/lib/ -lSDL_image -lSDL_mixer -lGLES_CM -lEGL -lX11 -lGLUES_CM
+SOURCES := $(wildcard $(SRC)/*.cpp)
+OBJS = $(SOURCES:$(SRC)/%.cpp=$(OBJDIR)/%.o)
+
+CXX = $(CROSS)g++
 RM = rm -f
 CP = cp -r
 MD = mkdir -p
 ECHO = echo
 CHMOD = chmod
-STRIP = arm-angstrom-linux-gnueabi-strip
-LD = arm-angstrom-linux-gnueabi-g++
+ifeq ($(FLAVOR),release)
+STRIP = $(CROSS)strip
+else
+STRIP = echo "Not stripping:"
+endif
 
-all: $(EXE)
+SYSROOT := $(shell $(CXX) -print-sysroot)
 
-%.o: %.cpp
-	$(CC) $(CFLAGS) -c $< -o $@
+CXXFLAGS := -O3 -pipe -ftree-vectorize -ffast-math -fsingle-precision-constant -fsigned-char
+ifeq ($(FLAVOR),release)
+CXXFLAGS += -DNDEBUG
+endif
+ifeq ($(FLAVOR),debug)
+CXXFLAGS += -g
+endif
+CXXFLAGS += -Wno-write-strings
+CXXFLAGS += -DHAVE_GLES -DUSE_GLES1
+ifeq ($(TARGET),pandora)
+CXXFLAGS += -DPANDORA -march=armv7-a -mtune=cortex-a8 -mfpu=neon -mfloat-abi=softfp
+endif
+ifeq ($(TARGET),gcw0)
+CXXFLAGS += -DGCW
+endif
+CXXFLAGS += $(shell $(SYSROOT)/usr/bin/sdl-config --cflags)
+ifeq ($(TARGET),pandora)
+CXXFLAGS += -I$(PREFIX)/include -L$(PREFIX)/lib
+CXXFLAGS += -I/usr/local/angstrom/arm/arm-angstrom-linux-gnueabi/usr/X11R6/include -I/usr/local/angstrom/arm/arm-angstrom-linux-gnueabi/usr/include
+endif
 
-$(EXE): $(OBJS)
-	$(CC) $(CFLAGS) $(LDFLAGS) $^ -o $@
-	@$(STRIP) $@
+LDFLAGS := $(shell $(SYSROOT)/usr/bin/sdl-config --libs)
+ifeq ($(TARGET),pandora)
+LDFLAGS += -L/usr/local/angstrom/arm/arm-angstrom-linux-gnueabi/usr/X11R6/lib/
+endif
+LDFLAGS += -lSDL_image -lSDL_mixer
+ifeq ($(TARGET),pandora)
+LDFLAGS += -lGLES_CM -lEGL -lX11
+endif
+ifeq ($(TARGET),gcw0)
+LDFLAGS += -lGLESv1_CM -lEGL
+endif
+
+.PHONY: all clean opk install uninstall
+
+ifeq ($(TARGET),gcw0)
+all: opk
+else
+all: $(EXEDIR)/$(EXE)
 	@$(ECHO) " o If there are no errors, the game compiled succesfully"
+endif
+
+$(OBJS): $(OBJDIR)/%.o: $(SRC)/%.cpp $(wildcard $(SRC)/*.h)
+	@$(MD) $(@D)
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+$(EXEDIR)/$(EXE): $(OBJS)
+	@$(MD) $(@D)
+	$(CXX) $(LDFLAGS) $^ -o $@
+	@$(STRIP) $@
 
 clean:
-	@$(ECHO) " o Cleaning up source directory"
-	@$(RM) $(SRC)/*.o $(SRC)/*.bak core $(EXE)
+	@$(ECHO) " o Cleaning up"
+	@$(RM) -r $(OUTDIR)
+	@$(RM) $(SRC)/*.bak core
+
+opk: $(EXEDIR)/$(EXE)
+	@$(ECHO) " o Creating OPK file"
+	@mksquashfs \
+		"$(EXTRADIR)/default.gcw0.desktop" \
+		"$(EXTRADIR)/goonies-32x32.png" \
+		$(EXEDIR)/$(EXE) \
+		$(DATA) \
+		$(OUTDIR)/goonies.opk \
+		-noappend -comp gzip -all-root
 
 install: all
 	@$(ECHO) " o Creating install directory $(BINDIR)"
@@ -106,4 +143,3 @@ uninstall:
 	@$(ECHO) " o Removing application menu entry"
 	@$(RM) "$(ICNDIR)/$(ICON)" "$(APPDIR)/$(DESKTOP)"
 	@$(ECHO) ""
-
