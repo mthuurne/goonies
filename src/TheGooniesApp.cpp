@@ -118,8 +118,16 @@ TheGooniesApp::TheGooniesApp()
     m_keys_configuration[GKEY_RIGHT] = SDLK_RIGHT;
     m_keys_configuration[GKEY_DOWN] = SDLK_DOWN;
     m_keys_configuration[GKEY_LEFT] = SDLK_LEFT;
+#if defined(PANDORA)
     m_keys_configuration[GKEY_FIRE] = SDLK_HOME;
     m_keys_configuration[GKEY_PAUSE] = SDLK_p;
+#elif defined(GCW)
+    m_keys_configuration[GKEY_FIRE] = SDLK_LCTRL;
+    m_keys_configuration[GKEY_PAUSE] = SDLK_RETURN;
+#else
+    m_keys_configuration[GKEY_FIRE] = SDLK_SPACE;
+    m_keys_configuration[GKEY_PAUSE] = SDLK_F1;
+#endif
     m_keys_configuration[GKEY_QUIT] = SDLK_ESCAPE;
 
     m_sfx_volume = MIX_MAX_VOLUME;
