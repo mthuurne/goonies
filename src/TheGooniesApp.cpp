@@ -312,6 +312,11 @@ void TheGooniesApp::draw()
               SCREEN_X / 2, SCREEN_Y / 2, 0,
               0, -1, 0); /* for 640x480 better */
 
+    // Put viewport pixels in the center of the projected texture pixels.
+    glTranslatef((0.5f * SCREEN_X) / VIEWPORT_W,
+                 (0.5f * SCREEN_Y) / VIEWPORT_H,
+                 0.0f);
+
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
