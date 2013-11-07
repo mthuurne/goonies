@@ -14,6 +14,7 @@
 
 #include "stdio.h"
 #include "math.h"
+#include <cassert>
 
 #include "auxiliar.h"
 
@@ -34,27 +35,41 @@ int nearest_2pow(int n)
     return res;
 } /* nearest_2pow */
 
+static void unpackTextureFromSurface(SDL_Surface *sfc, float *tx, float *ty)
+{
+    int szx = nearest_2pow(sfc->w);
+    int szy = nearest_2pow(sfc->h);
+    *tx = (sfc->w) / float(szx);
+    *ty = (sfc->h) / float(szy);
+
+    SDL_Surface *sfc2 = SDL_CreateRGBSurface(SDL_SWSURFACE, szx, szy, 32,
+                                             RMASK, GMASK, BMASK, AMASK);
+    SDL_SetAlpha(sfc, 0, 0);
+    SDL_BlitSurface(sfc, 0, sfc2, 0);
+
+    if (sfc2->pitch == szx * 4) {
+        glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
+    } else if (sfc2->pitch == (szx + 1) * 4) {
+        glPixelStorei(GL_UNPACK_ALIGNMENT, 8);
+    } else {
+        fprintf(stderr, "Cannot align: %d bytes of pixels with pitch %d\n",
+                        szx * 4, sfc2->pitch);
+        assert(false);
+    }
+
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, szx, szy, 0, GL_RGBA,
+                 GL_UNSIGNED_BYTE, sfc2->pixels);
+
+    SDL_FreeSurface(sfc2);
+}
 
 GLuint createTexture(SDL_Surface *sfc, float *tx, float *ty)
 {
-    unsigned int tname = 0;
-    int szx, szy;
-
     if (sfc != 0) {
-        SDL_Surface *sfc2 = 0;
-
-        szx = nearest_2pow(sfc->w);
-        szy = nearest_2pow(sfc->h);
-        *tx = (sfc->w) / float(szx);
-        *ty = (sfc->h) / float(szy);
-
-        sfc2 = SDL_CreateRGBSurface(SDL_SWSURFACE, szx, szy, 32, RMASK, GMASK, BMASK, AMASK);
-        SDL_SetAlpha(sfc, 0, 0);
-        SDL_BlitSurface(sfc, 0, sfc2, 0);
-
+        unsigned int tname = 0;
         glGenTextures(1, &tname);
-        glPixelStorei(GL_UNPACK_ALIGNMENT, tname);
         glBindTexture(GL_TEXTURE_2D, tname);
+
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 #if VIEWPORT_W == SCREEN_X && VIEWPORT_H == SCREEN_Y
@@ -65,37 +80,22 @@ GLuint createTexture(SDL_Surface *sfc, float *tx, float *ty)
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 #endif
 
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, szx, szy, 0, GL_RGBA, GL_UNSIGNED_BYTE, sfc2->pixels);
+        unpackTextureFromSurface(sfc, tx, ty);
 
-        SDL_FreeSurface(sfc2);
+        return tname;
     } else {
         return 0;
     } /* if */
-
-    return tname;
 } /* createTexture */
 
 
 GLuint createTextureClamp(SDL_Surface *sfc, float *tx, float *ty)
 {
-    unsigned int tname = 0;
-    int szx, szy;
-
     if (sfc != 0) {
-        SDL_Surface *sfc2 = 0;
-
-        szx = nearest_2pow(sfc->w);
-        szy = nearest_2pow(sfc->h);
-        *tx = (sfc->w) / float(szx);
-        *ty = (sfc->h) / float(szy);
-
-        sfc2 = SDL_CreateRGBSurface(SDL_SWSURFACE, szx, szy, 32, RMASK, GMASK, BMASK, AMASK);
-        SDL_SetAlpha(sfc, 0, 0);
-        SDL_BlitSurface(sfc, 0, sfc2, 0);
-
+        unsigned int tname = 0;
         glGenTextures(1, &tname);
-        glPixelStorei(GL_UNPACK_ALIGNMENT, tname);
         glBindTexture(GL_TEXTURE_2D, tname);
+
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
 
@@ -107,37 +107,21 @@ GLuint createTextureClamp(SDL_Surface *sfc, float *tx, float *ty)
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 #endif
 
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, szx, szy, 0, GL_RGBA, GL_UNSIGNED_BYTE, sfc2->pixels);
+        unpackTextureFromSurface(sfc, tx, ty);
 
-        SDL_FreeSurface(sfc2);
+        return tname;
     } else {
         return 0;
-    } /* if */
-
-    return tname;
+    }
 } /* createTextureClamp */
-
 
 GLuint createTextureSmooth(SDL_Surface *sfc, float *tx, float *ty)
 {
-    unsigned int tname = 0;
-    int szx, szy;
-
     if (sfc != 0) {
-        SDL_Surface *sfc2 = 0;
-
-        szx = nearest_2pow(sfc->w);
-        szy = nearest_2pow(sfc->h);
-        *tx = (sfc->w) / float(szx);
-        *ty = (sfc->h) / float(szy);
-
-        sfc2 = SDL_CreateRGBSurface(SDL_SWSURFACE, szx, szy, 32, RMASK, GMASK, BMASK, AMASK);
-        SDL_SetAlpha(sfc, 0, 0);
-        SDL_BlitSurface(sfc, 0, sfc2, 0);
-
+        unsigned int tname = 0;
         glGenTextures(1, &tname);
-        glPixelStorei(GL_UNPACK_ALIGNMENT, tname);
         glBindTexture(GL_TEXTURE_2D, tname);
+
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
         //  glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_CLAMP);
@@ -147,56 +131,34 @@ GLuint createTextureSmooth(SDL_Surface *sfc, float *tx, float *ty)
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, szx, szy, 0, GL_RGBA, GL_UNSIGNED_BYTE, sfc2->pixels);
+        unpackTextureFromSurface(sfc, tx, ty);
 
-        SDL_FreeSurface(sfc2);
+        return tname;
     } else {
         return 0;
-    } /* if */
-
-    return tname;
+    }
 } /* createTextureSmooth */
 
 
 GLuint createTextureClampSmooth(SDL_Surface *sfc, float *tx, float *ty)
 {
-    unsigned int tname = 0;
-    int szx, szy;
-
     if (sfc != 0) {
-        SDL_Surface *sfc2 = 0;
-
-        szx = nearest_2pow(sfc->w);
-        szy = nearest_2pow(sfc->h);
-        *tx = (sfc->w) / float(szx);
-        *ty = (sfc->h) / float(szy);
-
-        sfc2 = SDL_CreateRGBSurface(SDL_SWSURFACE, szx, szy, 32, RMASK, GMASK, BMASK, AMASK);
-        SDL_SetAlpha(sfc, 0, 0);
-        SDL_BlitSurface(sfc, 0, sfc2, 0);
-
+        unsigned int tname = 0;
         glGenTextures(1, &tname);
-        glPixelStorei(GL_UNPACK_ALIGNMENT, tname);
         glBindTexture(GL_TEXTURE_2D, tname);
-        //  glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_REPEAT);
-        //  glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_REPEAT);
 
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
 
-        //  glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-        //  glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, szx, szy, 0, GL_RGBA, GL_UNSIGNED_BYTE, sfc2->pixels);
+        unpackTextureFromSurface(sfc, tx, ty);
 
-        SDL_FreeSurface(sfc2);
+        return tname;
     } else {
         return 0;
-    } /* if */
-
-    return tname;
+    }
 } /* createTextureClampSmooth */
 
 
@@ -211,7 +173,6 @@ GLuint createTextureFromScreen(int x, int y, int dx, int dy, float *tx, float *t
     *ty = (dy) / float(szy);
 
     glGenTextures(1, &tname);
-    glPixelStorei(GL_UNPACK_ALIGNMENT, tname);
     glBindTexture(GL_TEXTURE_2D, tname);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
