@@ -121,11 +121,6 @@ SDL_Surface *initialization(int flags)
 
         return 0;
     } /* if */
-#if defined(HAVE_GLES)
-       	if (!EGL_Open())
-		exit(1);
-#endif
-
 
 #ifdef __DEBUG_MESSAGES
     output_debug_message("SDL initialized\n");
@@ -178,8 +173,15 @@ SDL_Surface *initialization(int flags)
 
     screen = SDL_SetVideoMode(SCREEN_X, SCREEN_Y, bpp, flags);
 #else
+#if defined(GCW)
+    screen = SDL_SetVideoMode(320, 240, 0, SDL_HWSURFACE | SDL_DOUBLEBUF);
+#else
     screen = SDL_SetVideoMode(640, 480, 0, SDL_SWSURFACE | SDL_FULLSCREEN);
-    EGL_Init();
+#endif
+    if (EGL_Open(screen->w, screen->h)) {
+        printf("Failed to open EGL context.\n");
+        return 0;
+    }
 #endif
 
     if (screen == 0) {
@@ -240,7 +242,7 @@ void finalization()
 #if !defined(HAVE_GLES)
     SDL_Quit();
 #else
-    EGL_Destroy();
+    EGL_Close();
     SDL_Quit();
 #endif
 
