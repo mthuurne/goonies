@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Goonies
+Comment=Game based on the movie 'The Goonies'
+Type=Application
+Exec=goonies
+Icon=goonies-32x32
+Categories=games;
