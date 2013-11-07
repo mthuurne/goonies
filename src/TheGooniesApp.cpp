@@ -303,16 +303,14 @@ void TheGooniesApp::draw()
     glPolygonMode(GL_FRONT, GL_FILL);
 #endif
     glClearColor(0, 0, 0, 0.0);
-#ifndef HAVE_GLES
-    glViewport(0, 0, SCREEN_X, SCREEN_Y);
-#else
-    glViewport(0, 0, 800, 480);
-#endif
+    glViewport(0, 0, VIEWPORT_W, VIEWPORT_H);
     ratio = (float)SCREEN_X / float(SCREEN_Y);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     gluPerspective(30.0, ratio, 1.0, 10240.0);
-    gluLookAt(400, 240, PERSPECTIVE_DISTANCE, 400, 240, 0, 0, -1, 0); /* for 640x480 better */
+    gluLookAt(SCREEN_X / 2, SCREEN_Y / 2, PERSPECTIVE_DISTANCE,
+              SCREEN_X / 2, SCREEN_Y / 2, 0,
+              0, -1, 0); /* for 640x480 better */
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();

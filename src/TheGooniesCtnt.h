@@ -1,8 +1,20 @@
 #ifndef _THEGOONIES_CONSTANTS
 #define _THEGOONIES_CONSTANTS
 
+#if defined(PANDORA)
 #define SCREEN_X    800
 #define SCREEN_Y    480
+#else
+#define SCREEN_X    640
+#define SCREEN_Y    480
+#endif
+#if defined(GCW)
+#define VIEWPORT_W  320
+#define VIEWPORT_H  240
+#else
+#define VIEWPORT_W  SCREEN_X
+#define VIEWPORT_H  SCREEN_Y
+#endif
 
 #define PLAYER_MAX_ENERGY  64
 #define PLAYER_MAX_EXPERIENCE 16
