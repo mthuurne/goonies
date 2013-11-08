@@ -40,19 +40,15 @@ class GLTile
         {
             return g_dy;
         }
-        int get_n_parts(void)
-        {
-            return nparts;
-        }
 
         class C2DCMC *get_cmc(void)
         {
                 return cmc;
         };
 
-        SDL_Surface *get_tile(int i)
+        SDL_Surface *get_tile()
         {
-            return tile[i];
+            return tile;
         }
 
     private:
@@ -66,18 +62,17 @@ class GLTile
 
         void free(void);
 
-        int nparts;
         bool smooth;
         bool clamp;
 
         int g_dx, g_dy;
         int hot_x, hot_y;
 
-        SDL_Surface **tile;
-        int *x, *y;
-        int *dx, *dy;
-        float *tex_coord_x, *tex_coord_y;
-        GLuint *tex;
+        SDL_Surface *tile;
+        int x, y;
+        int dx, dy;
+        float tex_coord_x, tex_coord_y;
+        GLuint tex;
 
         class C2DCMC *cmc;
 };

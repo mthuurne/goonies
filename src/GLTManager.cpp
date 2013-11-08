@@ -73,12 +73,6 @@ GLTile *GLTManager::get(Symbol *name)
         sprintf(filename, "graphics/%s.png", name->get());
         t = new GLTile(filename);
 
-		if (t->get_n_parts()==0) {
-#ifdef __DEBUG_MESSAGES
-			 output_debug_message("Error loading tile: '%s'\n");
-#endif
-		} // if
-
         t->set_clamp();
         n = new GLTManagerNode();
         n->m_tile = t;
@@ -170,7 +164,7 @@ GLTile *GLTManager::get(Symbol *name)
                 si = i * fx;
                 for (j = 0;j < dx;j++) {
                     sj = j * fy;
-                    c = getpixel(t->get_tile(0), (int)sj, (int)si);
+                    c = getpixel(t->get_tile(), (int)sj, (int)si);
                     putpixel(s, j, i, c);
                 } // for
             } // for
@@ -239,12 +233,6 @@ GLTile *GLTManager::get_smooth(Symbol *name)
 
         sprintf(filename, "graphics/%s.png", name->get());
         t = new GLTile(filename);
-
-		if (t->get_n_parts()==0) {
-#ifdef __DEBUG_MESSAGES
-			 output_debug_message("Error loading tile: '%s'\n");
-#endif
-		} // if
 
         t->set_smooth();
         //  t->set_clamp();

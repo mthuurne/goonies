@@ -66,25 +66,8 @@ GLTile::GLTile(SDL_Surface *sfc, int ax, int ay, int adx, int ady)
 
 GLTile::~GLTile()
 {
-    if (nparts != 0) {
-        int i;
-        for (i = 0;i < nparts;i++) {
-            if (tile[i] != 0) {
-                SDL_FreeSurface(tile[i]);
-                tile[i] = 0;
-                glDeleteTextures(1, &(tex[i]));
-            } /* if */
-        } /* for */
-
-        delete []tile;
-        delete []x;
-        delete []y;
-        delete []dx;
-        delete []dy;
-        delete []tex_coord_x;
-        delete []tex_coord_y;
-        delete []tex;
-    } /* if */
+    SDL_FreeSurface(tile);
+    glDeleteTextures(1, &tex);
 
     delete cmc;
 }  /* GLTile::~GLTile */
@@ -92,8 +75,6 @@ GLTile::~GLTile()
 
 void GLTile::init(SDL_Surface *sfc)
 {
-    nparts = 0;
-
     clamp = false;
     smooth = false;
 
@@ -102,51 +83,17 @@ void GLTile::init(SDL_Surface *sfc)
     hot_x = 0;
     hot_y = 0;
 
-    tile = 0;
-    x = 0;
-    y = 0;
-    dx = 0;
-    dy = 0;
-    tex_coord_x = 0;
-    tex_coord_y = 0;
-    tex = 0;
-
     cmc = 0;
 
-    clamp = false;
-    smooth = false;
+    tile = sfc;
 
-    if (sfc != 0) {
-        nparts = 1;
-        tile = new SDL_Surface * [1];
-        tile[0] = sfc;
-
-        x = new int[1];
-        y = new int[1];
-        dx = new int[1];
-        dy = new int[1];
-        tex_coord_x = new float[1];
-        tex_coord_y = new float[1];
-        tex = new GLuint[1];
-
-        if (tile[0] != 0) {
-            g_dx = tile[0]->w;
-            g_dy = tile[0]->h;
-            x[0] = 0;
-            y[0] = 0;
-            dx[0] = tile[0]->w;
-            dy[0] = tile[0]->h;
-            tex[0] = createTexture(tile[0], &(tex_coord_x[0]), &(tex_coord_y[0]));
-        } else {
-            x[0] = 0;
-            y[0] = 0;
-            dx[0] = 0;
-            dy[0] = 0;
-            tex_coord_x[0] = 0;
-            tex_coord_y[0] = 0;
-            tex[0] = (GLuint) - 1;
-        } /* if */
-    } /* if */
+    g_dx = tile->w;
+    g_dy = tile->h;
+    x = 0;
+    y = 0;
+    dx = tile->w;
+    dy = tile->h;
+    tex = createTexture(tile, &tex_coord_x, &tex_coord_y);
 
     compute_cmc();
 } /* GLTile::set */
@@ -154,29 +101,19 @@ void GLTile::init(SDL_Surface *sfc)
 
 void GLTile::set_clamp(void)
 {
-    int i;
-
     clamp = true;
     smooth = false;
 
-    for (i = 0;i < nparts;i++) {
-        tex[i] = createTextureClamp(tile[i], &(tex_coord_x[i]), &(tex_coord_y[i]));
-    } /* for */
-
+    tex = createTextureClamp(tile, &tex_coord_x, &tex_coord_y);
 } /* GLTile::set_clamp */
 
 
 void GLTile::set_smooth(void)
 {
-    int i;
-
     clamp = false;
     smooth = true;
 
-    for (i = 0;i < nparts;i++) {
-        tex[i] = createTextureSmooth(tile[i], &(tex_coord_x[i]), &(tex_coord_y[i]));
-    } /* for */
-
+    tex = createTextureSmooth(tile, &tex_coord_x, &tex_coord_y);
 } /* GLTile::set_smooth */
 
 
@@ -260,7 +197,6 @@ void GLTile::draw(float r, float g, float b, float a)
 {
     bool tmp;
     // bool tmp2;
-    int i;
 
     tmp = (glIsEnabled(GL_TEXTURE_2D) ? true : false);
     // tmp2=(glIsEnabled(GL_COLOR_MATERIAL) ? true:false);
@@ -268,51 +204,49 @@ void GLTile::draw(float r, float g, float b, float a)
         glEnable(GL_TEXTURE_2D);
     // if (!tmp2) glEnable(GL_COLOR_MATERIAL);
 
-    for (i = 0;i < nparts;i++) {
-        glBindTexture(GL_TEXTURE_2D, tex[i]);
+    glBindTexture(GL_TEXTURE_2D, tex);
 
-        glColor4f(r, g, b, a);
-        glNormal3f(0.0, 0.0, 1.0);
+    glColor4f(r, g, b, a);
+    glNormal3f(0.0, 0.0, 1.0);
 #ifndef HAVE_GLES
-        glBegin(GL_QUADS);
-        glTexCoord2f(0, 0);
-        glVertex3f(float(x[i] - hot_x), float(y[i] - hot_y), 0);
+    glBegin(GL_QUADS);
+    glTexCoord2f(0, 0);
+    glVertex3f(float(x - hot_x), float(y - hot_y), 0);
 
-        glTexCoord2f(0, tex_coord_y[i]);
-        glVertex3f(float(x[i] - hot_x), float(y[i] + dy[i] - hot_y), 0);
+    glTexCoord2f(0, tex_coord_y);
+    glVertex3f(float(x - hot_x), float(y + dy - hot_y), 0);
 
-        glTexCoord2f(tex_coord_x[i], tex_coord_y[i]);
-        glVertex3f(float(x[i] + dx[i] - hot_x), float(y[i] + dy[i] - hot_y), 0);
+    glTexCoord2f(tex_coord_x, tex_coord_y);
+    glVertex3f(float(x + dx - hot_x), float(y + dy - hot_y), 0);
 
-        glTexCoord2f(tex_coord_x[i], 0);
-        glVertex3f(float(x[i] + dx[i] - hot_x), float(y[i] - hot_y), 0);
+    glTexCoord2f(tex_coord_x, 0);
+    glVertex3f(float(x + dx - hot_x), float(y - hot_y), 0);
 
-        glEnd();
+    glEnd();
 #else
-	GLfloat vtx1[] = {
-	    float(x[i] - hot_x), float(y[i] - hot_y), 0,
-	    float(x[i] - hot_x), float(y[i] + dy[i] - hot_y), 0,
-	    float(x[i] + dx[i] - hot_x), float(y[i] + dy[i] - hot_y), 0,
-	    float(x[i] + dx[i] - hot_x), float(y[i] - hot_y), 0
-	};
-	GLfloat tex1[] = {
-	    0, 0,
-	    0, tex_coord_y[i],
-	    tex_coord_x[i], tex_coord_y[i],
-	    tex_coord_x[i], 0
-	};
+    GLfloat vtx1[] = {
+        float(x - hot_x), float(y - hot_y), 0,
+        float(x - hot_x), float(y + dy - hot_y), 0,
+        float(x + dx - hot_x), float(y + dy - hot_y), 0,
+        float(x + dx - hot_x), float(y - hot_y), 0
+    };
+    GLfloat tex1[] = {
+        0, 0,
+        0, tex_coord_y,
+        tex_coord_x, tex_coord_y,
+        tex_coord_x, 0
+    };
 
-      glEnableClientState(GL_VERTEX_ARRAY);
-      glEnableClientState(GL_TEXTURE_COORD_ARRAY);
- 
-      glVertexPointer(3, GL_FLOAT, 0, vtx1);
-      glTexCoordPointer(2, GL_FLOAT, 0, tex1);
-      glDrawArrays(GL_TRIANGLE_FAN,0,4);
- 
-      glDisableClientState(GL_VERTEX_ARRAY);
-      glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+
+    glVertexPointer(3, GL_FLOAT, 0, vtx1);
+    glTexCoordPointer(2, GL_FLOAT, 0, tex1);
+    glDrawArrays(GL_TRIANGLE_FAN,0,4);
+
+    glDisableClientState(GL_VERTEX_ARRAY);
+    glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 #endif
-    } /* for */
 
     // if (!tmp2) glDisable(GL_COLOR_MATERIAL);
     if (!tmp)
@@ -365,55 +299,52 @@ void GLTile::draw_toffs(float r, float g, float b, float a, float toffs_x, float
         glEnable(GL_TEXTURE_2D);
     // if (!tmp2) glEnable(GL_COLOR_MATERIAL);
 
-    for (i = 0;i < nparts;i++) {
-        real_x_offs = tex_coord_x[i] * toffs_x;
-        real_y_offs = tex_coord_y[i] * toffs_y;
-        glBindTexture(GL_TEXTURE_2D, tex[i]);
+    real_x_offs = tex_coord_x * toffs_x;
+    real_y_offs = tex_coord_y * toffs_y;
+    glBindTexture(GL_TEXTURE_2D, tex);
 
-        glColor4f(r, g, b, a);
-        glNormal3f(0.0, 0.0, 1.0);
+    glColor4f(r, g, b, a);
+    glNormal3f(0.0, 0.0, 1.0);
 #ifndef HAVE_GLES
-        glBegin(GL_QUADS);
+    glBegin(GL_QUADS);
 
-        glTexCoord2f(real_x_offs, real_y_offs);
-        glVertex3f(float(x[i] - hot_x), float(y[i] - hot_y), 0);
+    glTexCoord2f(real_x_offs, real_y_offs);
+    glVertex3f(float(x - hot_x), float(y - hot_y), 0);
 
-        glTexCoord2f(real_x_offs, real_y_offs + tex_coord_y[i]);
-        glVertex3f(float(x[i] - hot_x), float(y[i] + dy[i] - hot_y), 0);
+    glTexCoord2f(real_x_offs, real_y_offs + tex_coord_y);
+    glVertex3f(float(x - hot_x), float(y + dy - hot_y), 0);
 
-        glTexCoord2f(real_x_offs + tex_coord_x[i], real_y_offs + tex_coord_y[i]);
-        glVertex3f(float(x[i] + dx[i] - hot_x), float(y[i] + dy[i] - hot_y), 0);
+    glTexCoord2f(real_x_offs + tex_coord_x, real_y_offs + tex_coord_y);
+    glVertex3f(float(x + dx - hot_x), float(y + dy - hot_y), 0);
 
-        glTexCoord2f(real_x_offs + tex_coord_x[i], real_y_offs);
-        glVertex3f(float(x[i] + dx[i] - hot_x), float(y[i] - hot_y), 0);
+    glTexCoord2f(real_x_offs + tex_coord_x, real_y_offs);
+    glVertex3f(float(x + dx - hot_x), float(y - hot_y), 0);
 
-        glEnd();
+    glEnd();
 #else
-	GLfloat vtx2[] = {
-	float(x[i] - hot_x), float(y[i] - hot_y), 0,
-	float(x[i] - hot_x), float(y[i] + dy[i] - hot_y), 0,
-	float(x[i] + dx[i] - hot_x), float(y[i] + dy[i] - hot_y), 0,
-	float(x[i] + dx[i] - hot_x), float(y[i] - hot_y), 0
-	};
-	GLfloat tex2[] = {
-	real_x_offs, real_y_offs,
-	real_x_offs, real_y_offs + tex_coord_y[i],
-	real_x_offs + tex_coord_x[i], real_y_offs + tex_coord_y[i],
-	real_x_offs + tex_coord_x[i], real_y_offs
-	};
-      glEnableClientState(GL_VERTEX_ARRAY);
-      glEnableClientState(GL_TEXTURE_COORD_ARRAY);
- 
-      glVertexPointer(3, GL_FLOAT, 0, vtx2);
-      glTexCoordPointer(2, GL_FLOAT, 0, tex2);
-      glDrawArrays(GL_TRIANGLE_FAN,0,4);
- 
-      glDisableClientState(GL_VERTEX_ARRAY);
-      glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+    GLfloat vtx2[] = {
+        float(x - hot_x), float(y - hot_y), 0,
+        float(x - hot_x), float(y + dy - hot_y), 0,
+        float(x + dx - hot_x), float(y + dy - hot_y), 0,
+        float(x + dx - hot_x), float(y - hot_y), 0
+    };
+    GLfloat tex2[] = {
+        real_x_offs, real_y_offs,
+        real_x_offs, real_y_offs + tex_coord_y,
+        real_x_offs + tex_coord_x, real_y_offs + tex_coord_y,
+        real_x_offs + tex_coord_x, real_y_offs
+    };
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
-	
-#endif 
-   } /* for */
+    glVertexPointer(3, GL_FLOAT, 0, vtx2);
+    glTexCoordPointer(2, GL_FLOAT, 0, tex2);
+    glDrawArrays(GL_TRIANGLE_FAN,0,4);
+
+    glDisableClientState(GL_VERTEX_ARRAY);
+    glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+
+#endif
 
     // if (!tmp2) glDisable(GL_COLOR_MATERIAL);
     if (!tmp)
@@ -480,14 +411,9 @@ void GLTile::draw_cmc(float r, float g, float b, float a, float dx, float dy, fl
 
 Uint32 GLTile::get_pixel(int ax, int ay)
 {
-    int i;
-
-    for (i = 0;i < nparts;i++) {
-        if (ax >= x[i] && ax < x[i] + dx[i] &&
-                ay >= y[i] && ay < y[i] + dy[i]) {
-            return getpixel(tile[i], ax - x[i], ay - y[i]);
-        } /* if */
-    } /* for */
+    if (ax >= x && ax < x + dx && ay >= y && ay < y + dy) {
+        return getpixel(tile, ax - x, ay - y);
+    }
 
     return 0;
 } // GLTile::get_pixel
