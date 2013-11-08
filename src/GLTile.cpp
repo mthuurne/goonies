@@ -24,102 +24,47 @@
 
 GLTile::GLTile(char *fname)
 {
-    nparts = 0;
+    SDL_Surface *sfc = IMG_Load(fname);
+#ifdef __DEBUG_MESSAGES
+    if (!sfc) {
+        output_debug_message("GLTile: Cannot open: %s\n",fname);
+    }
+#endif
+    assert(sfc);
 
-    clamp = false;
-    smooth = false;
+    if (sfc->format->BytesPerPixel != 4) {
+        SDL_Surface *sfc2 = SDL_CreateRGBSurface(
+                SDL_SWSURFACE, sfc->w, sfc->h, 32, RMASK, GMASK, BMASK, AMASK);
+        SDL_SetAlpha(sfc2, 0, 0);
+        SDL_BlitSurface(sfc, 0, sfc2, 0);
+        SDL_FreeSurface(sfc);
+        sfc = sfc2;
+    }
 
-    g_dx = 0;
-    g_dy = 0;
-    hot_x = 0;
-    hot_y = 0;
-
-    tile = 0;
-    x = 0;
-    y = 0;
-    dx = 0;
-    dy = 0;
-    tex_coord_x = 0;
-    tex_coord_y = 0;
-    tex = 0;
-
-    cmc = 0;
-    set(fname);
+    init(sfc);
 } /* GLTile::GLTile */
-
 
 GLTile::GLTile(SDL_Surface *sfc)
 {
-    nparts = 0;
-
-    clamp = false;
-    smooth = false;
-
-    g_dx = 0;
-    g_dy = 0;
-    hot_x = 0;
-    hot_y = 0;
-
-    tile = 0;
-    x = 0;
-    y = 0;
-    dx = 0;
-    dy = 0;
-    tex_coord_x = 0;
-    tex_coord_y = 0;
-    tex = 0;
-
-    cmc = 0;
-    set(sfc);
+    assert(sfc);
+    init(sfc);
 } /* GLTile::GLTile */
 
 
 GLTile::GLTile(SDL_Surface *sfc, int ax, int ay, int adx, int ady)
 {
-    nparts = 0;
+    assert(sfc);
 
-    clamp = false;
-    smooth = false;
+    SDL_Surface *sfc2 = SDL_CreateRGBSurface(SDL_SWSURFACE, adx, ady, 32, RMASK, GMASK, BMASK, AMASK);
+    SDL_Rect r = { .x = ax, .y = ay, .w = adx, .h = ady };
+    SDL_SetAlpha(sfc, 0, 0);
+    SDL_BlitSurface(sfc, &r, sfc2, 0);
 
-    g_dx = 0;
-    g_dy = 0;
-    hot_x = 0;
-    hot_y = 0;
-
-    tile = 0;
-    x = 0;
-    y = 0;
-    dx = 0;
-    dy = 0;
-    tex_coord_x = 0;
-    tex_coord_y = 0;
-    tex = 0;
-
-    cmc = 0;
-
-    if (sfc != 0) {
-        SDL_Surface *sfc2 = SDL_CreateRGBSurface(SDL_SWSURFACE, adx, ady, 32, RMASK, GMASK, BMASK, AMASK);
-        SDL_Rect r;
-
-        r.x = ax;
-        r.y = ay;
-        r.w = adx;
-        r.h = ady;
-        SDL_SetAlpha(sfc, 0, 0);
-        SDL_BlitSurface(sfc, &r, sfc2, 0);
-        set(sfc2);
-        //  SDL_FreeSurface(sfc2);
-    } /* if */
+    init(sfc2);
 } /* GLTile::GLTile */
 
 
 GLTile::~GLTile()
-{
-    free();
-}  /* GLTile::~GLTile */
-
-
-void GLTile::free(void)
 {
     if (nparts != 0) {
         int i;
@@ -140,7 +85,17 @@ void GLTile::free(void)
         delete []tex_coord_y;
         delete []tex;
     } /* if */
+
+    delete cmc;
+}  /* GLTile::~GLTile */
+
+
+void GLTile::init(SDL_Surface *sfc)
+{
     nparts = 0;
+
+    clamp = false;
+    smooth = false;
 
     g_dx = 0;
     g_dy = 0;
@@ -156,72 +111,7 @@ void GLTile::free(void)
     tex_coord_y = 0;
     tex = 0;
 
-    delete cmc;
     cmc = 0;
-} // GLTile::free
-
-
-void GLTile::set(char *fname)
-{
-    free();
-
-    clamp = false;
-    smooth = false;
-
-    nparts = 1;
-    tile = new SDL_Surface * [1];
-    tile[0] = IMG_Load(fname);
-    assert(tile[0] != 0);
-
-#ifdef __DEBUG_MESSAGES
-	if (tile[0]==0) {
-		output_debug_message("GLTile: Cannot open: %s\n",fname);
-	} // if
-#endif
-
-    if (tile[0]->format->BytesPerPixel != 4) {
-        SDL_Surface *sfc = SDL_CreateRGBSurface(SDL_SWSURFACE, tile[0]->w, tile[0]->h, 32, RMASK, GMASK, BMASK, AMASK);
-
-        SDL_SetAlpha(sfc, 0, 0);
-        SDL_BlitSurface(tile[0], 0, sfc, 0);
-        SDL_FreeSurface(tile[0]);
-        tile[0] = sfc;
-    } /* if */
-
-    x = new int[1];
-    y = new int[1];
-    dx = new int[1];
-    dy = new int[1];
-    tex_coord_x = new float[1];
-    tex_coord_y = new float[1];
-    tex = new GLuint[1];
-
-    if (tile[0] != 0) {
-        g_dx = tile[0]->w;
-        g_dy = tile[0]->h;
-        x[0] = 0;
-        y[0] = 0;
-        dx[0] = tile[0]->w;
-        dy[0] = tile[0]->h;
-        tex[0] = createTexture(tile[0], &(tex_coord_x[0]), &(tex_coord_y[0]));
-    } else {
-        x[0] = 0;
-        y[0] = 0;
-        dx[0] = 0;
-        dy[0] = 0;
-        tex_coord_x[0] = 0;
-        tex_coord_y[0] = 0;
-        tex[0] = (GLuint) - 1;
-    } /* if */
-
-    compute_cmc();
-
-} /* GLTile::set */
-
-
-void GLTile::set(SDL_Surface *sfc)
-{
-    free();
 
     clamp = false;
     smooth = false;

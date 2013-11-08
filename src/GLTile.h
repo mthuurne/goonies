@@ -56,8 +56,7 @@ class GLTile
         }
 
     private:
-        void set(char *fname);
-        void set(SDL_Surface *sfc);
+        void init(SDL_Surface *sfc);
 
         void draw_toffs(float r, float g, float b, float a, float toffs_x, float toffs_y);
 
