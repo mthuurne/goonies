@@ -46,11 +46,6 @@ class GLTile
                 return cmc;
         };
 
-        SDL_Surface *get_tile()
-        {
-            return tile;
-        }
-
     private:
         void init(SDL_Surface *sfc);
 
