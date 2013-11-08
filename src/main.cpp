@@ -70,7 +70,6 @@ int frames_per_sec = 0;
 int frames_per_sec_tmp = 0;
 int init_time = 0;
 bool show_fps = false;
-int current_cycle = 0;
 
 
 
@@ -392,7 +391,6 @@ int main(int argc, char** argv) {
 
                 /* cycle */
                 k->cycle();
-                current_cycle++;
                 if (!game->cycle(k))
                     quit = true;
                 need_to_redraw = true;
@@ -407,7 +405,6 @@ int main(int argc, char** argv) {
 
         /* Redraw */
         if (need_to_redraw) {
-            GLTile::recheck_textures();
             game->draw();
             need_to_redraw = false;
             frames_per_sec_tmp += 1;

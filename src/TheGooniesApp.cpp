@@ -56,7 +56,6 @@ extern bool ambient_light;
 
 extern int difficulty;
 extern int hiscore;
-extern int current_cycle;
 
 TheGooniesApp::TheGooniesApp()
 {
@@ -380,7 +379,7 @@ void TheGooniesApp::draw()
 
     if (show_fps) {
         char tmp[80];
-        sprintf(tmp, "video mem: %.4gmb - fps: %i", float(GLTile::get_memory_used()) / float(1024 * 1024), frames_per_sec);
+        sprintf(tmp, "fps: %i", frames_per_sec);
         font_print_c(320, 460, 0, 0, 0.5f, "font_hl", tmp, -2);
     }
 

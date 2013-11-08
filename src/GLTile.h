@@ -55,12 +55,6 @@ class GLTile
             return tile[i];
         }
 
-        static int get_memory_used(void)
-        {
-            return memory_used;
-        }
-        static void recheck_textures(void);
-
     private:
         void set(char *fname);
         void set(SDL_Surface *sfc);
@@ -71,14 +65,7 @@ class GLTile
 
         void compute_cmc(void);
 
-        void load_textures(void);
         void free(void);
-
-        static int required_texture_check;
-        static int required_texture_reload;
-        static int memory_used;
-
-        int last_texture_check;
 
         int nparts;
         bool smooth;
@@ -94,13 +81,6 @@ class GLTile
         GLuint *tex;
 
         class C2DCMC *cmc;
-
-        bool m_drawn; // This variable tells if the tile has been drawn at least one time
-        // It is used for the following reason:
-        // - the "draw" function of this class tries to detect when a texture is not in memory to reload all the textures
-        // - however, in some opengl implementations a texture is not in memory till the first time it's drawn.
-        // - thus if a tile has still not been drawn, it's normal that it is not in memory and the texture reload
-        //   process should not start.
 };
 
 #endif

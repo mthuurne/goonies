@@ -22,12 +22,6 @@
 #include "debug.h"
 
 
-extern int current_cycle;
-int GLTile::required_texture_check = 0;
-int GLTile::required_texture_reload = 0;
-int GLTile::memory_used = 0;
-
-
 GLTile::GLTile(char *fname)
 {
     nparts = 0;
@@ -51,8 +45,6 @@ GLTile::GLTile(char *fname)
 
     cmc = 0;
     set(fname);
-
-    m_drawn = false;
 } /* GLTile::GLTile */
 
 
@@ -79,8 +71,6 @@ GLTile::GLTile(SDL_Surface *sfc)
 
     cmc = 0;
     set(sfc);
-
-    m_drawn = false;
 } /* GLTile::GLTile */
 
 
@@ -120,8 +110,6 @@ GLTile::GLTile(SDL_Surface *sfc, int ax, int ay, int adx, int ady)
         set(sfc2);
         //  SDL_FreeSurface(sfc2);
     } /* if */
-
-    m_drawn = false;
 } /* GLTile::GLTile */
 
 
@@ -140,8 +128,6 @@ void GLTile::free(void)
                 SDL_FreeSurface(tile[i]);
                 tile[i] = 0;
                 glDeleteTextures(1, &(tex[i]));
-                if (tex_coord_x[i] != 0 && tex_coord_y[i] != 0)
-                    memory_used -= int((dx[i] * dy[i] * 4) / (tex_coord_x[i] * tex_coord_y[i]));
             } /* if */
         } /* for */
 
@@ -217,10 +203,7 @@ void GLTile::set(char *fname)
         y[0] = 0;
         dx[0] = tile[0]->w;
         dy[0] = tile[0]->h;
-        last_texture_check = required_texture_check;
         tex[0] = createTexture(tile[0], &(tex_coord_x[0]), &(tex_coord_y[0]));
-        if (tex_coord_x[0] != 0 && tex_coord_y[0] != 0)
-            memory_used += int((dx[0] * dy[0] * 4) / (tex_coord_x[0] * tex_coord_y[0]));
     } else {
         x[0] = 0;
         y[0] = 0;
@@ -263,10 +246,7 @@ void GLTile::set(SDL_Surface *sfc)
             y[0] = 0;
             dx[0] = tile[0]->w;
             dy[0] = tile[0]->h;
-            last_texture_check = required_texture_check;
             tex[0] = createTexture(tile[0], &(tex_coord_x[0]), &(tex_coord_y[0]));
-            if (tex_coord_x[0] != 0 && tex_coord_y[0] != 0)
-                memory_used += int((dx[0] * dy[0] * 4) / (tex_coord_x[0] * tex_coord_y[0]));
         } else {
             x[0] = 0;
             y[0] = 0;
@@ -289,8 +269,6 @@ void GLTile::set_clamp(void)
     clamp = true;
     smooth = false;
 
-    last_texture_check = required_texture_check;
-
     for (i = 0;i < nparts;i++) {
         tex[i] = createTextureClamp(tile[i], &(tex_coord_x[i]), &(tex_coord_y[i]));
     } /* for */
@@ -304,8 +282,6 @@ void GLTile::set_smooth(void)
 
     clamp = false;
     smooth = true;
-
-    last_texture_check = required_texture_check;
 
     for (i = 0;i < nparts;i++) {
         tex[i] = createTextureSmooth(tile[i], &(tex_coord_x[i]), &(tex_coord_y[i]));
@@ -384,28 +360,6 @@ void GLTile::compute_cmc(void)
 } /* GLTile::compute_cmc */
 
 
-void GLTile::load_textures(void)
-{
-    int i;
-
-    last_texture_check = required_texture_check;
-
-    for (i = 0;i < nparts;i++) {
-        if (clamp) {
-            if (smooth)
-                tex[i] = createTextureClampSmooth(tile[i], &(tex_coord_x[i]), &(tex_coord_y[i]));
-            else
-                tex[i] = createTextureClamp(tile[i], &(tex_coord_x[i]), &(tex_coord_y[i]));
-        } else {
-            if (smooth)
-                tex[i] = createTextureSmooth(tile[i], &(tex_coord_x[i]), &(tex_coord_y[i]));
-            else
-                tex[i] = createTexture(tile[i], &(tex_coord_x[i]), &(tex_coord_y[i]));
-        } /* if */
-    } /* for */
-} // GLTile::load_textures
-
-
 void GLTile::draw(void)
 {
     draw(1, 1, 1, 1);
@@ -417,41 +371,6 @@ void GLTile::draw(float r, float g, float b, float a)
     bool tmp;
     // bool tmp2;
     int i;
-
-    // The texture reload tests have to be only performed if the tile has been drawn at least once:
-    if (m_drawn || last_texture_check < required_texture_reload) {
-        if (last_texture_check < required_texture_check) {
-            bool reload = false;
-            int res = 0;
-
-            if (last_texture_check < required_texture_reload)
-                reload = true;
-
-            for (i = 0;i < nparts && !reload;i++) {
-                glBindTexture(GL_TEXTURE_2D, tex[i]);
-#ifndef HAVE_GLES
-                glGetTexParameteriv(GL_TEXTURE_2D, GL_TEXTURE_RESIDENT, &res);
-               
-if (res == GL_FALSE) {
-                    reload = true;
-#endif
-#ifdef __DEBUG_MESSAGES 
-                    //     output_debug_message("Texture not loaded: %i, tex %i, res %i (GL_TRUE = %i, GL_FALSE = %i)\n",i,tex[i],res,GL_TRUE,GL_FALSE);
-                    output_debug_message("Out of texture memory (at cycle %i)! reloading textures...\n", current_cycle);
-#endif
-#ifndef HAVE_GLES
-                } // if
-#endif
-            } // for
-
-            last_texture_check = required_texture_check;
-            if (reload) 
-                load_textures();
-        } // if
-    } else {
-        m_drawn = true;
-    } // if
-
 
     tmp = (glIsEnabled(GL_TEXTURE_2D) ? true : false);
     // tmp2=(glIsEnabled(GL_COLOR_MATERIAL) ? true:false);
@@ -549,41 +468,6 @@ void GLTile::draw_toffs(float r, float g, float b, float a, float toffs_x, float
     // bool tmp2;
     int i;
     float real_x_offs, real_y_offs;
-
-
-    // The texture reload tests have to be only performed if the tile has been drawn at least once:
-    if (m_drawn || last_texture_check < required_texture_reload) {
-        if (last_texture_check < required_texture_check) {
-            bool reload = false;
-            int res = 0;
-
-            if (last_texture_check < required_texture_reload)
-                reload = true;
-
-            for (i = 0;i < nparts && !reload && last_texture_check == required_texture_check;i++) {
-                glBindTexture(GL_TEXTURE_2D, tex[i]);
-#ifndef HAVE_GLES
-                glGetTexParameteriv(GL_TEXTURE_2D, GL_TEXTURE_RESIDENT, &res);
-              
-if (res == GL_FALSE) {
-                    reload = true;
-#endif
-#ifdef __DEBUG_MESSAGES 
-                    //     output_debug_message("Texture not loaded: %i, tex %i, res %i (GL_TRUE = %i, GL_FALSE = %i)\n",i,tex[i],res,GL_TRUE,GL_FALSE);
-                    output_debug_message("Out of texture memory (at cycle %i)! reloading textures...\n", current_cycle);
-#endif
-#ifndef HAVE_GLES
-                } // if
-#endif
-            } // for
-
-            last_texture_check = required_texture_check;
-            if (reload)
-                load_textures();
-        } // if
-    } else {
-        m_drawn = true;
-    } // if
 
     tmp = (glIsEnabled(GL_TEXTURE_2D) ? true : false);
     // tmp2=(glIsEnabled(GL_COLOR_MATERIAL) ? true:false);
@@ -717,9 +601,3 @@ Uint32 GLTile::get_pixel(int ax, int ay)
 
     return 0;
 } // GLTile::get_pixel
-
-
-void GLTile::recheck_textures(void)
-{
-    required_texture_check++;
-} /* GLTile::recheck_textures */
