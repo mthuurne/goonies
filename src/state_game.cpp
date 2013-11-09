@@ -46,11 +46,19 @@ int TheGooniesApp::game_cycle(KEYBOARDSTATE *k)
         m_game_state = 1;
     }
     if (m_game_state == 2) {
-        if ((k->keyboard[SDLK_y] && !k->old_keyboard[SDLK_y])) {
+        if ((k->keyboard[SDLK_y] && !k->old_keyboard[SDLK_y])
+#if defined(GCW)
+            || (k->keyboard[SDLK_SPACE] && !k->old_keyboard[SDLK_SPACE])
+#endif
+        ) {
             m_game_state = 4;
             m_state_cycle = GAME_FADE_IN_TIME ;
-        } else if ((k->keyboard[SDLK_n] && !k->old_keyboard[SDLK_n]) ||
-                   (k->keyboard[m_keys_configuration[GKEY_QUIT]] && !k->old_keyboard[m_keys_configuration[GKEY_QUIT]])) {
+        } else if ((k->keyboard[SDLK_n] && !k->old_keyboard[SDLK_n])
+            || (k->keyboard[m_keys_configuration[GKEY_QUIT]] && !k->old_keyboard[m_keys_configuration[GKEY_QUIT]])
+#if defined(GCW)
+            || (k->keyboard[SDLK_LALT] && !k->old_keyboard[SDLK_LALT])
+#endif
+        ) {
             m_game_state = 3;
             m_state_cycle = 0;
             if (!m_game->game_paused()) m_SFXM->SFX_resume_continuous();
@@ -189,7 +197,13 @@ static void draw_quit_confirm(int t)
 
     int x = 320 - (GAME_FADE_IN_TIME - t) * 24;
     font_print_c(x, 150, 0, 0, 1, "font", "do you want to quit?");
-    font_print_c(x, 200, 0, 0, 1, "font_hl", "y / n");
+    font_print_c(x, 200, 0, 0, 1,
+#if defined(GCW)
+            "font_hl", "y : quit / b : back"
+#else
+            "font_hl", "y / n"
+#endif
+            );
 }
 
 void TheGooniesApp::game_draw(void)
