@@ -53,11 +53,8 @@ class GLTile
 
         void draw_toffs(float r, float g, float b, float a, float toffs_x, float toffs_y);
 
-        Uint32 get_pixel(int x, int y);
-
         void compute_cmc(void);
-
-        void free(void);
+        void update_cmc(void);
 
         bool smooth;
         bool clamp;
@@ -68,6 +65,7 @@ class GLTile
         SDL_Surface *tile;
         int x, y;
         int dx, dy;
+        int cmc_x1, cmc_x2, cmc_y1, cmc_y2;
         float tex_coord_x, tex_coord_y;
         GLuint tex;
 

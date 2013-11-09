@@ -95,6 +95,33 @@ void GLTile::init(SDL_Surface *sfc)
 } /* GLTile::set */
 
 
+void GLTile::compute_cmc(void)
+{
+    cmc_x1 = 0; cmc_y1 = 0;
+    cmc_x2 = 0; cmc_y2 = 0;
+    bool first = true;
+    for (int i = 0; i < g_dy; i++) {
+        for (int j = 0; j < g_dx; j++) {
+            Uint32 c = getpixel(tile, j, i);
+            if ((c & AMASK) != 0) {
+                if (first) {
+                    first = false;
+                    cmc_x1 = cmc_x2 = j;
+                    cmc_y1 = cmc_y2 = i;
+                } else {
+                    if (j < cmc_x1) cmc_x1 = j;
+                    if (j > cmc_x2) cmc_x2 = j;
+                    if (i < cmc_y1) cmc_y1 = i;
+                    if (i > cmc_y2) cmc_y2 = i;
+                }
+            }
+        }
+    }
+
+    update_cmc();
+} /* GLTile::compute_cmc */
+
+
 void GLTile::set_clamp(void)
 {
     clamp = true;
@@ -118,67 +145,25 @@ void GLTile::set_hotspot(int hx, int hy)
     hot_x = hx;
     hot_y = hy;
 
-    compute_cmc();
+    update_cmc();
 } /* GLTile::set_hotspot */
 
 
 void GLTile::set_cmc(int x1, int y1, int x2, int y2)
 {
-    float x[2];
-    float y[2];
+    cmc_x1 = x1; cmc_y1 = y1;
+    cmc_x2 = x2; cmc_y2 = y2;
 
-    x[0] = float(x1);
-    y[0] = float(y1);
-    x[1] = float(x2);
-    y[1] = float(y2);
-
-    x[0] -= hot_x;
-    x[1] -= hot_x;
-    y[0] -= hot_y;
-    y[1] -= hot_y;
-
-    cmc.set(x, y, 2);
+    update_cmc();
 } /* GLTile::set_cmc */
 
 
-void GLTile::compute_cmc(void)
+void GLTile::update_cmc(void)
 {
-    float x[2] = {0, 0}, y[2] = {0, 0};
-    bool first = true;
-    int i, j;
-    Uint32 c;
-
-    for (i = 0;i < get_dy();i++) {
-        for (j = 0;j < get_dx();j++) {
-            c = get_pixel(j, i);
-            //   if ((c&AMASK)==AMASK) {
-            if ((c&AMASK) != 0) {
-                if (first) {
-                    first = false;
-                    x[0] = x[1] = float(j);
-                    y[0] = y[1] = float(i);
-                } else {
-                    if (j < x[0])
-                        x[0] = float(j);
-                    if (j > x[1])
-                        x[1] = float(j);
-                    if (i < y[0])
-                        y[0] = float(i);
-                    if (i > y[1])
-                        y[1] = float(i);
-                } /* if */
-            } /* if */
-
-        } /* for */
-    } /* for */
-
-    x[0] -= hot_x;
-    x[1] -= hot_x;
-    y[0] -= hot_y;
-    y[1] -= hot_y;
-
+    float x[2] = { cmc_x1 - hot_x, cmc_x2 - hot_x };
+    float y[2] = { cmc_y1 - hot_y, cmc_y2 - hot_y };
     cmc.set(x, y, 2);
-} /* GLTile::compute_cmc */
+} /* GLTile::update_cmc */
 
 
 void GLTile::draw(void)
@@ -401,13 +386,3 @@ void GLTile::draw_cmc(float r, float g, float b, float a, float dx, float dy, fl
     cmc.draw(r, g, b, a);
     glPopMatrix();
 } /* GLTile::draw */
-
-
-Uint32 GLTile::get_pixel(int ax, int ay)
-{
-    if (ax >= x && ax < x + dx && ay >= y && ay < y + dy) {
-        return getpixel(tile, ax - x, ay - y);
-    }
-
-    return 0;
-} // GLTile::get_pixel
