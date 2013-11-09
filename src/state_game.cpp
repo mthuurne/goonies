@@ -152,6 +152,46 @@ int TheGooniesApp::game_cycle(KEYBOARDSTATE *k)
     return THEGOONIES_STATE_GAME;
 }
 
+static void draw_dark_overlay(float alpha)
+{
+    glEnable(GL_COLOR_MATERIAL);
+
+    glColor4f(0, 0, 0, alpha);
+
+    glNormal3f(0.0, 0.0, 1.0);
+#ifndef HAVE_GLES
+    glBegin(GL_QUADS);
+    glVertex3f(0, 0, 0);
+    glVertex3f(0, 480, 0);
+    glVertex3f(640, 480, 0);
+    glVertex3f(640, 0, 0);
+    glEnd();
+#else
+    GLfloat vtx[] = {
+        0, 0, 0,
+        0, 480, 0,
+        640, 480, 0,
+        640, 0, 0
+    };
+
+    glEnableClientState(GL_VERTEX_ARRAY);
+
+    glVertexPointer(3, GL_FLOAT, 0, vtx);
+    glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
+
+    glDisableClientState(GL_VERTEX_ARRAY);
+#endif
+}
+
+static void draw_quit_confirm(int t)
+{
+    draw_dark_overlay(float(t) / (GAME_FADE_IN_TIME * 2));
+
+    int x = 320 - (GAME_FADE_IN_TIME - t) * 24;
+    font_print_c(x, 150, 0, 0, 1, "font", "do you want to quit?");
+    font_print_c(x, 200, 0, 0, 1, "font_hl", "y / n");
+}
+
 void TheGooniesApp::game_draw(void)
 {
     glClearColor(0, 0, 0, 1);
@@ -159,152 +199,19 @@ void TheGooniesApp::game_draw(void)
 
     m_game->draw(m_GLTM);
 
-    if (m_game_state == 0) {
-        glEnable(GL_COLOR_MATERIAL);
-
-        {
-            float f = 0;
-            f = float(GAME_FADE_IN_TIME - m_state_cycle) / GAME_FADE_IN_TIME;
-            glColor4f(0, 0, 0, f);
-        }
-        glNormal3f(0.0, 0.0, 1.0);
-#ifndef HAVE_GLES
-        glBegin(GL_QUADS);
-        glVertex3f(0, 0, 0);
-        glVertex3f(0, 480, 0);
-        glVertex3f(640, 480, 0);
-        glVertex3f(640, 0, 0);
-        glEnd();
-#else
-        GLfloat vtx1[] = {
-            0, 0, 0,
-            0, 480, 0,
-            640, 480, 0,
-            640, 0, 0
-            };
-
-        glEnableClientState(GL_VERTEX_ARRAY);
-
-        glVertexPointer(3, GL_FLOAT, 0, vtx1);
-        glDrawArrays(GL_TRIANGLE_FAN,0,4);
-
-        glDisableClientState(GL_VERTEX_ARRAY);
-#endif
-    }
-
-    if (m_game_state == 2) {
-        glEnable(GL_COLOR_MATERIAL);
-
-        {
-            {
-                float f = 0;
-                f = float(min(m_state_cycle,GAME_FADE_IN_TIME)) / (GAME_FADE_IN_TIME * 2);
-                glColor4f(0, 0, 0, f);
-            }
-            glNormal3f(0.0, 0.0, 1.0);
-#ifndef HAVE_GLES
-            glBegin(GL_QUADS);
-            glVertex3f(0, 0, 0);
-            glVertex3f(0, 480, 0);
-            glVertex3f(640, 480, 0);
-            glVertex3f(640, 0, 0);
-            glEnd();
-#else
-            GLfloat vtx2[] = {
-                0, 0, 0,
-                0, 480, 0,
-                640, 480, 0,
-                640, 0, 0
-                };
-
-            glEnableClientState(GL_VERTEX_ARRAY);
-
-            glVertexPointer(3, GL_FLOAT, 0, vtx2);
-            glDrawArrays(GL_TRIANGLE_FAN,0,4);
-
-            glDisableClientState(GL_VERTEX_ARRAY);
-#endif
-        }
-
-        {
-            int x=320-(GAME_FADE_IN_TIME-m_state_cycle)*24;
-            if (x>320) x=320;
-            font_print_c(x, 150, 0, 0, 1, "font", "do you want to quit?");
-            font_print_c(x, 200, 0, 0, 1, "font_hl", "y / n");
-        }
-    }
-
-    if (m_game_state == 3) {
-        glEnable(GL_COLOR_MATERIAL);
-        {
-            {
-                float f = 0;
-                f = float(GAME_FADE_IN_TIME-m_state_cycle) / (GAME_FADE_IN_TIME * 2);
-                glColor4f(0, 0, 0, f);
-            }
-            glNormal3f(0.0, 0.0, 1.0);
-#ifndef HAVE_GLES
-            glBegin(GL_QUADS);
-            glVertex3f(0, 0, 0);
-            glVertex3f(0, 480, 0);
-            glVertex3f(640, 480, 0);
-            glVertex3f(640, 0, 0);
-            glEnd();
-#else
-            GLfloat vtx3[] = {
-                0, 0, 0,
-                0, 480, 0,
-                640, 480, 0,
-                640, 0, 0
-                };
-
-            glEnableClientState(GL_VERTEX_ARRAY);
-
-            glVertexPointer(3, GL_FLOAT, 0, vtx3);
-            glDrawArrays(GL_TRIANGLE_FAN,0,4);
-
-            glDisableClientState(GL_VERTEX_ARRAY);
-#endif
-        }
-
-        {
-            int x=320+(m_state_cycle)*24;
-            font_print_c(x, 150, 0, 0, 1, "font", "do you want to quit?");
-            font_print_c(x, 200, 0, 0, 1, "font_hl", "y / n");
-        }
-
-    }
-
-    if (m_game_state == 4) {
-        glEnable(GL_COLOR_MATERIAL);
-
-        {
-            float f = 0;
-            f = float(m_state_cycle) / (GAME_FADE_IN_TIME*2);
-            glColor4f(0, 0, 0, f);
-        }
-        glNormal3f(0.0, 0.0, 1.0);
-#ifndef HAVE_GLES
-        glBegin(GL_QUADS);
-        glVertex3f(0, 0, 0);
-        glVertex3f(0, 480, 0);
-        glVertex3f(640, 480, 0);
-        glVertex3f(640, 0, 0);
-        glEnd();
-#else
-        GLfloat vtx4[] = {
-            0, 0, 0,
-            0, 480, 0,
-            640, 480, 0,
-            640, 0, 0
-            };
-
-        glEnableClientState(GL_VERTEX_ARRAY);
-
-        glVertexPointer(3, GL_FLOAT, 0, vtx4);
-        glDrawArrays(GL_TRIANGLE_FAN,0,4);
-
-        glDisableClientState(GL_VERTEX_ARRAY);
-#endif
+    switch (m_game_state) {
+        case 0:
+            draw_dark_overlay(float(GAME_FADE_IN_TIME - m_state_cycle)
+                    / GAME_FADE_IN_TIME);
+            break;
+        case 2:
+            draw_quit_confirm(min(m_state_cycle, GAME_FADE_IN_TIME));
+            break;
+        case 3:
+            draw_quit_confirm(GAME_FADE_IN_TIME - m_state_cycle);
+            break;
+        case 4:
+            draw_dark_overlay(float(m_state_cycle) / (GAME_FADE_IN_TIME * 2));
+            break;
     }
 }
