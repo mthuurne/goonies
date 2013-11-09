@@ -1,6 +1,8 @@
 #ifndef __BRAIN_GL_TILE
 #define __BRAIN_GL_TILE
 
+#include "2DCMC.h"
+
 /* OpenGL HW accelerated 2D tiles */
 
 class GLTile
@@ -41,9 +43,9 @@ class GLTile
             return g_dy;
         }
 
-        class C2DCMC *get_cmc(void)
+        C2DCMC *get_cmc(void)
         {
-                return cmc;
+            return &cmc;
         };
 
     private:
@@ -69,7 +71,7 @@ class GLTile
         float tex_coord_x, tex_coord_y;
         GLuint tex;
 
-        class C2DCMC *cmc;
+        C2DCMC cmc;
 };
 
 #endif

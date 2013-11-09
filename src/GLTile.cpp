@@ -68,8 +68,6 @@ GLTile::~GLTile()
 {
     SDL_FreeSurface(tile);
     glDeleteTextures(1, &tex);
-
-    delete cmc;
 }  /* GLTile::~GLTile */
 
 
@@ -82,8 +80,6 @@ void GLTile::init(SDL_Surface *sfc)
     g_dy = 0;
     hot_x = 0;
     hot_y = 0;
-
-    cmc = 0;
 
     tile = sfc;
 
@@ -141,7 +137,7 @@ void GLTile::set_cmc(int x1, int y1, int x2, int y2)
     y[0] -= hot_y;
     y[1] -= hot_y;
 
-    cmc->set(x, y, 2);
+    cmc.set(x, y, 2);
 } /* GLTile::set_cmc */
 
 
@@ -151,8 +147,6 @@ void GLTile::compute_cmc(void)
     bool first = true;
     int i, j;
     Uint32 c;
-
-    delete cmc;
 
     for (i = 0;i < get_dy();i++) {
         for (j = 0;j < get_dx();j++) {
@@ -183,7 +177,7 @@ void GLTile::compute_cmc(void)
     y[0] -= hot_y;
     y[1] -= hot_y;
 
-    cmc = new C2DCMC(x, y, 2);
+    cmc.set(x, y, 2);
 } /* GLTile::compute_cmc */
 
 
@@ -372,7 +366,7 @@ void GLTile::draw_toffs(float r, float g, float b, float a, float x, float y, fl
 
 void GLTile::draw_cmc(void)
 {
-    cmc->draw(1, 1, 1, 1);
+    cmc.draw(1, 1, 1, 1);
 } /* GLTile::draw */
 
 
@@ -384,7 +378,7 @@ void GLTile::draw_cmc(float dx, float dy, float dz, float angle, float zoom)
         glScalef(zoom, zoom, zoom);
     if (angle != 1)
         glRotatef(angle, 0, 0, 1);
-    cmc->draw(1, 1, 1, 1);
+    cmc.draw(1, 1, 1, 1);
     glPopMatrix();
 } /* GLTile::draw */
 
@@ -392,7 +386,7 @@ void GLTile::draw_cmc(float dx, float dy, float dz, float angle, float zoom)
 
 void GLTile::draw_cmc(float r, float g, float b, float a)
 {
-    cmc->draw(r, g, b, a);
+    cmc.draw(r, g, b, a);
 } /* GLTile::draw */
 
 
@@ -404,7 +398,7 @@ void GLTile::draw_cmc(float r, float g, float b, float a, float dx, float dy, fl
         glScalef(zoom, zoom, zoom);
     if (angle != 1)
         glRotatef(angle, 0, 0, 1);
-    cmc->draw(r, g, b, a);
+    cmc.draw(r, g, b, a);
     glPopMatrix();
 } /* GLTile::draw */
 
